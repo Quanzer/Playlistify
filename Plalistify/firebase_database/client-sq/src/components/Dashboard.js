@@ -70,9 +70,6 @@ function Dashboard(){
           })
       } 
       
-      
-
-
         
     
       if(!search) return setSearchResults([])
@@ -117,7 +114,7 @@ function Dashboard(){
 
     // Dashboard Component 
     <Container className="d-flex flex-column py-2" style={{height: "100vh"}}>
-        <h1>Spotify Search Bar</h1>
+        <h1>Playlistify Search Bar</h1>
         <Form.Control
             style={{margin:5}}
             type="search"
