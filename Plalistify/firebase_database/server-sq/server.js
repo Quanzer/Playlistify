@@ -13,52 +13,6 @@ app.use(bodyParser.json())
 var clientId = 'dfe14fe582f44c358b2e05ded123ee70', clientSecret = 'e09034ca3fb346ccaa929bb1559a9571';
 const spotifyApi = new SpotifyWebApi({clientId: clientId, clientSecret: clientSecret});
 
-/*
-
-app.post('/login', (req,res) => {
-  const code = req.body.code
-
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri:'http://localhost:3000',
-    clientId:'dfe14fe582f44c358b2e05ded123ee70',
-    clientSecret:'e09034ca3fb346ccaa929bb1559a9571'
-  })
-
-  spotifyApi.authorizationCodeGrant(code).then(data =>{
-    res.json({
-      accessToken: data.body.access_token,
-      refreshToken: data.body.refresh_token,
-      expiresIn: data.body.expires_in
-    })
-  })
-  .catch(()=>{
-    res.sendStatus(400);
-  })
-})
-
-app.post('/refresh', (req, res) => {
-  const refreshToken = req.body.refreshToken
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri:'http://localhost:3000',
-    clientId:'dfe14fe582f44c358b2e05ded123ee70', 
-    clientSecret:'e09034ca3fb346ccaa929bb1559a9571',
-    refreshToken, 
-  })
-
-  spotifyApi
-    .refreshAccessToken()
-    .then(data => {
-      res.json({
-        eccessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn,
-      })
-    })
-    .catch(err => {
-      console.log(err)
-      res.sendStatus(400)
-    })
-})
-*/
 
 app.post('/searchTracks', function(req, res){
   //spotifyApi.setAccessToken(req.body.accessToken)
@@ -102,4 +56,4 @@ spotifyApi.clientCredentialsGrant().then(
 app.use('/queue', queue(spotifyApi));
 
 // Open to port
-app.listen(3001);
+app.listen(3000);
