@@ -19,17 +19,17 @@ export default function MyFunc({personName }) {
         event.preventDefault()
         const form = event.currentTarget
 
-        if (form.checkValidity() === false) {
-            event.stopPropagation()
-            setValidated(true)
-            return // 如果表单验证失败，则不继续执行后面的代码
-        }
-
         if (roomType === 'private' && password !== rePassword) {
             setIsRePasswordInvalid(true); // 设置 rePasswordInput 为无效
             return;
         } else {
             setIsRePasswordInvalid(false); // 清除 rePasswordInput 的无效状态
+        }
+
+        if (form.checkValidity() === false) {
+            event.stopPropagation()
+            setValidated(true)
+            return // 如果表单验证失败，则不继续执行后面的代码
         }
 
         // 如果表单验证成功且密码匹配，可以在这里进行其他处理，例如发送表单数据
