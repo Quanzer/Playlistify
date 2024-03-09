@@ -56,11 +56,10 @@ img {
   max-width: 1900px;
   margin: 0rem auto;
 }
-body {
-  max-width: 100%;
-}
+
 
 body {
+  max-width: 100%;
   background-color: #f6f6f6;
 }
 html {
@@ -165,7 +164,7 @@ nav {
 }
 .secondary-button {
   padding: 1rem 2.5rem;
-  background-color: #432d94;
+  background-color: #1664DA;
   outline: none;
   border: none;
   border-radius: 5rem;
@@ -203,7 +202,7 @@ nav {
 }
 .about-section-text-container {
   flex: 1;
-  justify-content: center;
+  justify-content: left;
   display: flex;
   flex-direction: column;
 }
@@ -454,6 +453,7 @@ nav {
   .footer-section-columns {
     margin: 1rem 0rem;
   }
+
   .App {
     max-width: 95vw;
   }

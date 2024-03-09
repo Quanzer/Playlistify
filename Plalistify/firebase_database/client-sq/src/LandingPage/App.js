@@ -1,20 +1,23 @@
 import React from 'react';
 import '../styles/App.css';
-import Home from "./Home";
-import About from "./About";
-import Work  from "./Work";
+import Navbar from './Navbar.js';
+import Home from './Home';
+import About from './About';
+import Work from './Work';
 import Contact from './Contact';
+import FeedbackForm from '../feedbackform/FeedbackForm.js';
 import Footer from './Footer';
 
-//creating the app here and importing each component created
 function App() {
   return (
-    <div className="App"> 
+    <div className="App">
+      <Navbar />
       <Home/>
       <About/>
       <Work/>
       <Contact/>
-      <Footer/>
+      <FeedbackForm/>
+      <Footer />
     </div>
   );
 }
