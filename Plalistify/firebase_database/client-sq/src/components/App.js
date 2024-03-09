@@ -4,12 +4,13 @@ import Dashboard from './Dashboard.js';
 import Login from './Login';
 import io from 'socket.io-client';
 import Admin from './Admin.js';
+import Authorized from "./Authorized"
 import History from "./History"
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { createContext } from 'react'
 import { Routes, Route } from "react-router-dom"
 
-const code = new URLSearchParams(window.location.search).get('code')
+//const code = new URLSearchParams(window.location.search).get('code')
 
 export const SocketContext = createContext(io(process.env.REACT_APP_API_URL));
 function App() {
@@ -32,6 +33,8 @@ function App() {
     
         <Routes>
             <Route path="/admin" element={<Admin />}>
+            </Route>
+            <Route path="/auth" element={<Authorized />}>
             </Route>
             <Route path="/" element={<Dashboard/>}>
             </Route>

@@ -146,7 +146,7 @@ function Dashboard(){
           </Table>
         </TableContainer>}
         <h1>Queue</h1>
-        <div style= {{ height: "30vh", overflowY: "auto"}}>
+        <div style= {{ height: "80vh", overflowY: "auto"}}>
           <Queue trackList={queueData} />
         </div>
     </Container> 

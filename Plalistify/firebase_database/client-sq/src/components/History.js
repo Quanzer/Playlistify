@@ -17,27 +17,29 @@ const History = () => {
 
   const [searching, setSearching] = useState(false)
   const [clickedSB, setClickedSB] = useState("#3e4245")
-  const [borderColor, setBC] = useState(".25vh solid " + "#090f14")
+  const [borderColor, setBC] = useState(".25vh solid #090f14")
 
 
   function handleFocus() {
     setClickedSB("#003f73")
-    setBC(".25vh solid " + "#003f73")
+    setBC(".25vh solid #003f73")
   }
 
   function handleBlur() {
     setClickedSB("#3e4245")
-    setBC(".25vh solid " + "#090f14")
+    setBC(".25vh solid #090f14")
   }
 
   // Initialization
   useEffect(() => {
 
     let ignore = false;
+
     async function fetchHistory() {
       const result = await axios(process.env.REACT_APP_API_URL + '/playback/history');
       if (!ignore) setHistoryData(result.data.reverse());
     }
+
     fetchHistory();
 
     socket.on('updateHistory', (data) => {
@@ -50,12 +52,12 @@ const History = () => {
     }
   }, [])
 
+
   const searchHistory = (term) => {
     setSearchedHistory(historyData.filter((track) => (track.title.toLowerCase().includes(term.toLowerCase()) || track.artist.toLowerCase().includes(term.toLowerCase()))))
   }
 
   return (
-
 
     <div style={{ minHeight: "100vh", width: "80vh", maxWidth: "100%" }}>
       <Container style={{
@@ -94,7 +96,7 @@ const History = () => {
               onChange={(e) => {
                 if (e.target.value.length > 0)
                   setSearching(true)
-                if (e.target.value.length == 0)
+                if (e.target.value.length === 0)
                   setSearching(false)
                 searchHistory(e.target.value)
 
@@ -152,7 +154,7 @@ const History = () => {
                     Title
 
                   </div>
-                  <div style={{ borderTop: ".25vh solid " + "#090f14", marginLeft: 100 * 0.01+ 'vw', width: 100 * .76+ 'vw', marginTop: 100 * .000+ 'vh' }} />
+                  <div style={{ borderTop: ".25vh solid #090f14", marginLeft: 100 * 0.01+ 'vw', width: 100 * .76+ 'vw', marginTop: 100 * .000+ 'vh' }} />
                   <TableContainer style={{
                     float: "left",
                     borderBottomLeftRadius: 100 * .015+ 'vh',
@@ -170,7 +172,7 @@ const History = () => {
                       <TableBody>
 
 
-                        {((searchedHistory.length > 0) ? searchedHistory : historyData.slice(1)).map((track, index) => (
+                        {((searchedHistory.length > 0) ? searchedHistory : historyData.slice(0)).map((track, index) => (
 
                           <Track
                             track={track}
