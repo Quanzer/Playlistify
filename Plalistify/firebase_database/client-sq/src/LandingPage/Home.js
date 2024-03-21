@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from './Navbar.js'
 //banner for the picture may be added in the future
 // import BannerBackground from "../Assets/home-banner-background.png"
 import BannerImage from "../Assets/home-banner-image.png"
@@ -10,7 +9,6 @@ const Home = () => {
   /* may add a image banner in the future */ 
   return (
     <div className='home-container' id='home-section'>
-      <Navbar />
       <div className='home-banner-container'>
         <div className="home-bannerImage-container">
           {/* <img src={BannerBackground} alt="" /> */}
