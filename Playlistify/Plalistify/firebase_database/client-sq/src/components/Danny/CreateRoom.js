@@ -1,9 +1,14 @@
 import React from 'react'
 import {useState } from 'react'
 import { createRoom } from './Api'
-import { useNavigate } from 'react-router-dom';
-
-export default function MyFunc({personName }) {
+import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { propTypes } from 'react-bootstrap/esm/Image'
+// Component for creating room dialog box, accepts a personName as prop
+// post the data to the databse and return model window to caller
+export default function MyFunc({personId, personName, redirectTo}) {
+    
+    // declare all the states to record the state of each element
     const [validated, setValidated] = useState(false)
     const [capacity, setCapacity] = useState(1);
     const [roomName, setroomName] = useState('');
@@ -11,52 +16,63 @@ export default function MyFunc({personName }) {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('')
     const [passwordError, setPasswordError] = useState('');
-
     const [isRePasswordInvalid, setIsRePasswordInvalid] = useState(false);
     const navigate = useNavigate();
 
+    // function for submit data to the database
+    // and checking the validation of each textbox
+    // redireact to another page if the data successfuly
+    // posted to the database 
+    const isValidRedirectPath = (path) => {
+        return /^\/[a-zA-Z0-9-_\/]+$/.test(path)
+      };
+      
     const handleSubmit = async (event) => {
         event.preventDefault()
         const form = event.currentTarget
 
         if (roomType === 'private' && password !== rePassword) {
-            setIsRePasswordInvalid(true); // 设置 rePasswordInput 为无效
+            setIsRePasswordInvalid(true); 
             return;
         } else {
-            setIsRePasswordInvalid(false); // 清除 rePasswordInput 的无效状态
+            setIsRePasswordInvalid(false); 
         }
 
         if (form.checkValidity() === false) {
             event.stopPropagation()
             setValidated(true)
-            return // 如果表单验证失败，则不继续执行后面的代码
+            return 
         }
 
-        // 如果表单验证成功且密码匹配，可以在这里进行其他处理，例如发送表单数据
-        // 数据验证通过，准备提交数据
         const formData = {
             roomName: roomName,
             capacity: capacity,
             roomType: roomType,
-            password: roomType === 'private' ? password : "",  // 如果是私有房间，才需要密码
-            createdBy: personName
-        };
-
-        try {
-            const response = await createRoom(formData); // 使用导入的函数
-            navigate('/room');
-        } catch (error) {
-            console.error('Submit error:', error);
+            password: roomType === 'private' ? password : "",  
+            createdBy: personName,
+            PersonId: personId
         }
+
+        if (redirectTo && isValidRedirectPath(redirectTo) && personId && personName) {
+                try {
+                    const response = await createRoom(formData); 
+                    navigate(redirectTo);
+                } catch (error) {
+                    console.error('Submit error:', error);
+                }
+          }else{
+            alert('parameter is missing.')
+          }
+
     };
 
-
+    // switch the textbox states if user choose different room type
     const handleRoomTypeChange = (event) => {
         setRoomType(event.target.value)
         if (event.target.value === 'public') {
-            setPassword(''); // 重置密码
-            setRePassword(''); // 重置重复密码
-            setPasswordError(''); // 清除密码错误消息
+            setPassword(''); 
+            setRePassword(''); 
+            setPasswordError(''); 
             setIsRePasswordInvalid(false)
         }
     }
@@ -69,22 +85,20 @@ export default function MyFunc({personName }) {
             setCapacity(value);
         }
     }
-
     const handlePasswordChange = (event) => {
         setPassword(event.target.value)
         if (passwordError) {
-            setPasswordError(''); // 清除密码错误消息
+            setPasswordError(''); 
         }
     }
-
     const handleRePasswordChange = (event) => {
         setRePassword(event.target.value)
         if (passwordError) {
-            setPasswordError(''); // 清除密码错误消息
+            setPasswordError(''); 
         }
     }
 
-
+    // return the model window when user click on the button
     return (
         <div className="modal fade" id="myModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -161,4 +175,8 @@ export default function MyFunc({personName }) {
         </div>
     )
 }
-
+MyFunc.propTypes = {
+    personName: PropTypes.string.isRequired,
+    redirectTo: PropTypes.string.isRequired,
+    personId: PropTypes.number.isRequired
+  }
