@@ -1,27 +1,59 @@
 const express = require("express");
 const router = express.Router()
 
+module.exports = function(socket, session) {
 
-module.exports = function(spotifyApi) {
-    var queue = []; 
+  router.get('/', (req, res) => {
+    res.send('queue routing check')
+  })
 
-    router.get('/', (req, res) => {
-        res.send('Queue routing check')
+  router.get('/next', (req, res) => {
+    res.json(session.queue[0])
+  })
+
+  router.get('/show', (req, res) => {
+    res.json(session.queue)
+  })
+
+  router.post('/add', (req, res) => {
+    let added = false 
+    if (session.status.active) {
+      added = session.addToQueue(req.body);
+    }
+    if (added) {
+      socket.emit('queueAdd', req.body);
+      res.send('PASS');
+    }
+    else {
+      res.send('FAIL');
+    }
+  })
+
+  // Add song to Spotify account queue periodically (Purpose: Reduces number of API requests)
+  setInterval(() => {
+    if (session.buffer.length < 1) {
+      return;
+    }
+    const next = session.buffer.shift();
+    session.spotify.addToQueue(next).then(() => {
+    console.log('Next: ' + next);
+    }, (err) => {
+      console.log(err)
     })
+  }, 5000);
 
-    router.get('/next', (req, res) => {
-        res.json(queue[0])
-    })
+  // Popping Queue 
+  setInterval(() => {
+    if (session.queue.length < 1) {
+      // Empty queue
+      return;
+    }
+    if (Object.keys(session.playback).length != 0 && session.queue[0].uri == session.playback.item.uri){
+      session.popQueue();
+    }
 
-    router.get('/show', (req, res) => {
-        res.json(queue)
-    })
+  }, 1000);
 
-    router.post('/add', (req, res) => {
-        queue.push(req.body)
-        res.send("Added song to queue.")
-    })
 
-    return router;
-
+  return router;
 }
