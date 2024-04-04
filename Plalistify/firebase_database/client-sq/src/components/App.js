@@ -7,7 +7,6 @@ import History from "./History"
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import NavBar from "./NavBar"
 import { Routes, Route } from "react-router-dom"
-import HowToUse from './HowToUse';
 import { createContext } from 'react'
 import io from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -60,8 +59,7 @@ function App() {
             <Route path="/history" element={<History theme={theme} />}>
             </Route>
 
-            <Route path="/howtouse" element={<HowToUse theme={theme} />}>
-            </Route>
+            
           </Routes>
         </SocketContext.Provider>
       </div>
