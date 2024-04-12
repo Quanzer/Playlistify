@@ -15,11 +15,22 @@ import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import Logo from "../Assets/Logo.svg"; // Import the logo SVG
 
 import CreateRoom from '../CreateRoom/CreateRoom'
-
+import Invitation from '../InvitateGuest/Invitation';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Modal } from 'react-bootstrap';
 const Navbar = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
     const scrollRef = useRef(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     const menuOptions = [
         {
@@ -115,51 +126,72 @@ const Navbar = () => {
     }, []);
 
     // Prevent default behavior of anchor tags when clicked
+    // const handleClick = (event, targetId) => {
+    //     event.preventDefault();
+    //     scrollToSection(targetId);
+    // };
+
     const handleClick = (event, targetId) => {
         event.preventDefault();
-        scrollToSection(targetId);
+        if (targetId === 'join-party-section') {
+            handleShowModal();
+        } else {
+            scrollToSection(targetId);
+        }
     };
 
     return (
-        <nav ref={scrollRef} className={isSticky ? 'sticky-navbar' : ''}>
-            <div className='nav-logo-container'>
-                {/* Use Link to make the logo clickable and take the user back to the home page */}
-                <Link to="/" className="logo-link">
-                    <img src={Logo} alt="Playlistify" />
-                </Link>
-            </div>
-            <div className='navbar-links-container'>
-                {menuOptions.map((item) => (
-                    <a key={item.text} href={`#${item.target}`} onClick={(e) => handleClick(e, item.target)}>
-                        {item.text}
-                    </a>
-                ))}
-                {/* <Link to="/dashboard" className='primary-button'>Create Party</Link>  */}
-                <button className='primary-button' data-bs-toggle="modal" data-bs-target="#myModal">Create Party</button> {/*Update the button to use Link */}
-                <CreateRoom personName={"Danny"} personId={1001} redirectTo={"/dashboard"}/>
-            </div>
-            <div className='navbar-menu-container'>
-                <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
-            </div>
-            <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
-                <Box sx={{ width: 250 }}
-                    role="presentation"
-                    onClick={() => setOpenMenu(false)}
-                    onKeyDown={() => setOpenMenu(false)}
-                >
-                    <List>
-                        {menuOptions.map((item) => (
-                            <ListItem key={item.text} disablePadding>
-                                <ListItemButton onClick={() => scrollToSection(item.target)}>
-                                    <ListItemIcon>{item.icon}</ListItemIcon>
-                                    <ListItemText primary={item.text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
-            </Drawer>
-        </nav>
+        <>
+            <nav ref={scrollRef} className={isSticky ? 'sticky-navbar' : ''}>
+
+                <div className='nav-logo-container'>
+                    {/* Use Link to make the logo clickable and take the user back to the home page */}
+                    <Link to="/" className="logo-link">
+                        <img src={Logo} alt="Playlistify" />
+                    </Link>
+                </div>
+                <div className='navbar-links-container'>
+                    {menuOptions.map((item) => (
+                        <a key={item.text} href={`#${item.target}`} onClick={(e) => handleClick(e, item.target)}>
+                            {item.text}
+                        </a>
+                    ))}
+                    {/* <Link to="/dashboard" className='primary-button'>Create Party</Link>  */}
+                    <button className='primary-button' data-bs-toggle="modal" data-bs-target="#myModal">Create Party</button> {/*Update the button to use Link */}
+                    <CreateRoom personName={"Danny"} personId={1001} redirectTo={"/dashboard"} />
+                </div>
+                <div className='navbar-menu-container'>
+                    <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
+                </div>
+                <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
+                    <Box sx={{ width: 250 }}
+                        role="presentation"
+                        onClick={() => setOpenMenu(false)}
+                        onKeyDown={() => setOpenMenu(false)}
+                    >
+                        <List>
+                            {menuOptions.map((item) => (
+                                <ListItem key={item.text} disablePadding>
+                                    <ListItemButton onClick={() => scrollToSection(item.target)}>
+                                        <ListItemIcon>{item.icon}</ListItemIcon>
+                                        <ListItemText primary={item.text} />
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
+                </Drawer>
+            </nav>
+            <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title className='fw-bold fs-3'>Invite Guest</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Invitation />
+                </Modal.Body>
+            </Modal>
+        </>
+
     );
 };
 

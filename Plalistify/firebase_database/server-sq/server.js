@@ -4,9 +4,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const queue = require('./routes/queue')
-// const SpotifyWebApi = SpotifyWebApi
-// app.use(express.json()); // converts data into json between front and back 
-// app.use(express.static('./sq-ui/src')); // connects back to front
+
 app.use(cors())
 app.use(bodyParser.json())
 
