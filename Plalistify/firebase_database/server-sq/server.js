@@ -13,6 +13,7 @@ const host = require('./routes/host')
 const search = require('./routes/search')
 const queue = require('./routes/queue')
 const playback = require('./routes/playback')
+const pauseplay = require('./routes/pauseplay')
 
 // Deployment Related Functionality
 if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +37,7 @@ app.use('/host', host(session));
 app.use('/search', search(session));
 app.use('/queue', queue(io, session));
 app.use('/playback', playback(io, session));
+app.use('/pauseplay', pauseplay(session));
 
 // Open to port
 server.listen(process.env.PORT || 3001, () => {

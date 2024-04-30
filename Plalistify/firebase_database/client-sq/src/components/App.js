@@ -4,6 +4,7 @@ import Dashboard from './Dashboard.js';
 import Admin from "./Admin"
 import Authorized from "./Authorized"
 import History from "./History"
+import Settings from "./Settings"
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import NavBar from "./NavBar"
 import { Routes, Route } from "react-router-dom"
@@ -57,6 +58,8 @@ function App() {
             <Route path="/" element={<Dashboard theme={theme} mode ={mode}/>}>
             </Route>
             <Route path="/history" element={<History theme={theme} />}>
+            </Route>
+            <Route path="/settings" element={<Settings theme={theme} />}>
             </Route>
 
             

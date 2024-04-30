@@ -2,8 +2,7 @@
 import React from "react"
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
-
-import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = ({ children, theme, mode }) => {
@@ -18,6 +17,11 @@ const NavBar = ({ children, theme, mode }) => {
             path: "/history",
             name: "History",
             icon: <AccessTimeFilledRoundedIcon style={{ fontSize: '2.75vh' }} />
+        },
+        {
+            path: "/settings",
+            name: "Settings",
+            icon: <SettingsIcon style={{ fontSize: '2.75vh' }} />
         }
        
 

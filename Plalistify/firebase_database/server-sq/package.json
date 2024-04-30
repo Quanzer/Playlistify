@@ -2,6 +2,7 @@
   "name": "server-sq",
   "version": "1.0.0",
   "description": "",
+  "proxy": "http://localhost:3001",
   "main": "server.js",
   "scripts": {
     "devStart": "nodemon",
@@ -11,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.8",
     "body": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
