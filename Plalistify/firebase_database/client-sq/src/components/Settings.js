@@ -11,7 +11,7 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
   const [tempo, setTempo] = useState(featureFilters.tempo); // State for tempo feature
   const [explicit, setExplicit] = useState(featureFilters.explicit); // State for explicit feature
   const [accessToken, setAccessToken] = useState(""); // State for Spotify access token
-  const [isPlaying, setIsPlaying] = useState(false); // State for playback state
+  const [isPlaying, setIsPlaying] = useState(true); // State for playback state
  
 
   // Function to fetch Spotify access token
