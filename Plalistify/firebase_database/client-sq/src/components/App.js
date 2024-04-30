@@ -4,7 +4,8 @@ import Dashboard from './Dashboard.js';
 import Admin from "./Admin"
 import Authorized from "./Authorized"
 import History from "./History"
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import Settings from './Settings.js';
+import React, { useState, useEffect, useContext } from "react";
 import NavBar from "./NavBar"
 import { Routes, Route } from "react-router-dom"
 import { createContext } from 'react'
@@ -15,13 +16,20 @@ import themeDefinition from './theme';
 export const SocketContext = createContext(io(process.env.REACT_APP_API_URL));
 
 function App() {
-
   const apiSocket = useContext(SocketContext);
   const [mode, setMode] = useState(window.localStorage.getItem('theme') === null ? "light" : window.localStorage.getItem('theme'));
-  const theme = useMemo(() => createTheme(themeDefinition(mode)), [mode])
+  const [theme, setTheme] = useState(createTheme(themeDefinition(mode)));
+  const [featureFilters, setFeatureFilters] = useState({
+    energy: 0.0,
+    loudness: -50.0,
+    acousticness: 0.0,
+    instrumentalness: 0.0,
+    valence: 0.0,
+    tempo: 0,
+    explicit: true
+  });
 
   useEffect(() => {
-
     // Event Handlers
     apiSocket.on('id', (res) => {
       console.log('ID: ', res);
@@ -33,33 +41,29 @@ function App() {
     };
   }, [])
 
-  // console.log(theme)
+  // Function to update the theme
+  const updateTheme = (newTheme) => {
+    window.localStorage.setItem("theme", newTheme);
+    setMode(newTheme);
+    setTheme(createTheme(themeDefinition(newTheme)));
+  }
 
-  const handleSwitch = () => {
-    window.localStorage.setItem("theme", mode === "light" ? "dark" : "light")
-    setMode(mode === "light" ? "dark" : "light")
+  // Function to update feature filters
+  const updateFeatureFilters = (newFilters) => {
+    setFeatureFilters(newFilters);
   }
 
   return (
     <ThemeProvider theme={theme}>
       <div style={{ display: 'inline-flex', width: "100%", overflow: "hidden", backgroundColor: theme.palette.background.primary, height: "100vh" }}>
         <SocketContext.Provider value={apiSocket}>
-        
-          <NavBar theme={theme} mode={mode}>
-            
-          </NavBar>
-          
+          <NavBar theme={theme} mode={mode} updateTheme={updateTheme} />
           <Routes>
-            <Route path="/admin" element={<Admin />}>
-            </Route>
-            <Route path="/auth" element={<Authorized />}>
-            </Route>
-            <Route path="/" element={<Dashboard theme={theme} mode ={mode}/>}>
-            </Route>
-            <Route path="/history" element={<History theme={theme} />}>
-            </Route>
-
-            
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/auth" element={<Authorized />} />
+            <Route path="/" element={<Dashboard theme={theme} mode={mode} featureFilters={featureFilters} />} />
+            <Route path="/history" element={<History theme={theme} />} />
+            <Route path="/settings" element={<Settings theme={theme} updateTheme={updateTheme} updateFeatureFilters={updateFeatureFilters} featureFilters={featureFilters} />} />
           </Routes>
         </SocketContext.Provider>
       </div>

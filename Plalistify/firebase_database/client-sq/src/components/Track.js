@@ -10,11 +10,11 @@ const Track = ({ track, clickable, num, theme }) => {
   const [disable, setDisabled] = useState(false);
   const [fade, setSlide] = useState(true);
 
- // let unqueueable = !track.filter || track.explicit;
+ let unqueueable = !track.filter || track.explicit;
 
   function handleAdd() {
     const queueRequest = () => {
-      if (/*!track.explicit && track.filter && */ clickable) {
+      if (!track.explicit && track.filter &&  clickable) {
         axios.post(process.env.REACT_APP_API_URL + "/queue/add", {
           title: track.title,
           artist: track.artist,
@@ -119,7 +119,7 @@ const Track = ({ track, clickable, num, theme }) => {
             </div>
             <TableCell style={{ padding: "0vh", paddingRight: "0vw"}} align="right">
               {
-               // !unqueueable &&
+               !unqueueable &&
                  clickable ?
                 <IconButton onClick={handleAdd} disabled={disable} disableRipple disableTouchRipple style={{}}>
                   {

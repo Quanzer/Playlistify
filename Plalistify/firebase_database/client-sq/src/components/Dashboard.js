@@ -8,7 +8,7 @@ import NowPlaying from "./NowPlaying";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { SocketContext } from './App'
 
-const Dashboard = ({ theme, mode }) => {
+const Dashboard = ({ theme, mode, featureFilters }) => {
 
   const [borderColor, setBC] = useState(".25vh solid " + theme.palette.common.border)
 
@@ -27,7 +27,6 @@ const Dashboard = ({ theme, mode }) => {
 
   const [clicked, setClicked] = useState(false)
   const [keyPressed, setKeyPressed] = useState("")
-
 
   function handleFocus() {
     setBC(".25vh solid " + theme.palette.primary.main)
@@ -131,15 +130,15 @@ const Dashboard = ({ theme, mode }) => {
         if (features[i] === null) {
           boolFilter.push(false);
         }
-        else if (features[i].energy <= 0.3 ||
-          features[i].loudness <= -17 ||
-          features[i].acousticness >= .8 ||
-          features[i].instrumentalness >= 0.60 ||
-          features[i].valence <= 0.15 ||
-          features[i].tempo <= 45) {
+        else if (features[i].energy < featureFilters.energy ||
+          features[i].loudness < featureFilters.loudness ||
+          features[i].acousticness < featureFilters.acousticness ||
+          features[i].instrumentalness < featureFilters.instrumentalness ||
+          features[i].valence < featureFilters.valence ||
+          features[i].tempo < featureFilters.tempo) {
 
           boolFilter.push(false);
-
+         
         }
         else {
           boolFilter.push(true);
@@ -178,7 +177,7 @@ const Dashboard = ({ theme, mode }) => {
             albumUrl: smallestAlbumImage.url,
             albumName: track.album.name,
             songDuration: track.duration_ms,
-            explicit: track.explicit,
+            explicit: featureFilters.explicit == true ? false : track.explicit ,
             filter: boolArray[counter++],
             spotifyUrl: track.external_urls.spotify
           }
