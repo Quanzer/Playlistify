@@ -8,7 +8,7 @@ import NowPlaying from "./NowPlaying";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { SocketContext } from './App'
 
-const Dashboard = ({ theme, mode }) => {
+const Dashboard = ({ theme, mode, artist, title }) => {
 
   const [borderColor, setBC] = useState(".25vh solid " + theme.palette.common.border)
 
@@ -21,7 +21,7 @@ const Dashboard = ({ theme, mode }) => {
   const [search, setSearch] = useState("")
   const [queueData, setQueueData] = useState([])
   const [accessToken, setAccessToken] = useState("")
-
+  const [lyrics, setLyrics] = useState('');
   const [loading, setLoading] = useState(false)
 
 
@@ -123,7 +123,16 @@ const Dashboard = ({ theme, mode }) => {
         })
     }
 
-
+      // Fetch lyrics function
+  const fetchLyrics = async (artist, title) => {
+    try {
+      const response = await axios.get(`https://api.lyrics.ovh/v1/${NowPlaying.artist}/${NowPlaying.title}`);
+      setLyrics(response.data.lyrics);
+    } catch (error) {
+      console.error('Error fetching lyrics:', error);
+      setLyrics('Lyrics not available');
+    }
+  };
 
     function filter(features) {
       var boolFilter = []
@@ -273,42 +282,14 @@ const Dashboard = ({ theme, mode }) => {
                     {!clicked ?
                       <div style={{ padding: "1vh", fontSize: 100 * 0.0154 + 'vw', marginTop: 100 * 0.011 + 'vh', marginLeft: 100 * 0.007 + 'vw' }}>
                         <div style={{ height: '25vh' }}>
-                          <div style={{ fontSize: 100 * 0.0145 + 'vw', height: "4.25vh" }}>
-                            Guidelines
-                          </div>
-
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "1.75vh" }}>
-                            <div class="circle" style={{
-                              backgroundColor: theme.palette.background.secondary,
-                              
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
-                            }} >1 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                              Host can change song criteria for being added to queue!
+                          {lyrics && (
+                            <div style={{ fontSize: 100 * 0.0145 + 'vw', color: theme.palette.text.primary, marginTop: 100 * 0.011 + 'vh' }}>
+                              Lyrics:
+                              <div style={{ fontSize: 100 * 0.0145 + 'vw', marginTop: 100 * 0.011 + 'vh' }}>
+                                {lyrics}
+                              </div>
                             </div>
-                          </div>
-
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
-                            <div class="circle" style={{
-                              backgroundColor: theme.palette.background.secondary,
-                              
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
-                            }} >2 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                              If you loved a song you heard earlier, you can find it again in the history tab.
-                            </div>
-                          </div>
-
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
-                            <div class="circle" style={{
-                              backgroundColor: theme.palette.background.secondary,
-                              
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
-                            }} >3 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                            To keep the playlist diverse, add a variety of songs. Everyone loves discovering new jams!
-                            </div>
-                          </div>
+                          )}
                         </div>
                       </div>
                       :
@@ -435,7 +416,13 @@ const Dashboard = ({ theme, mode }) => {
                   <h2 style={{ color: theme.palette.text.primary, fontWeight: "1000", fontSize: 100 * 0.0167 + 'vw' }}>Now playing</h2>
                   {accessToken === "" ?
                     <h2 color={theme.palette.text.primary}>LOGIN TO SEE THE PLAYER</h2> :
-                    <NowPlaying theme={theme} mode={mode} />
+                    <NowPlaying
+                    theme={theme}
+                    mode={mode}
+                    artist={artist}
+                    title={title}
+                    setLyricsCallback={setLyrics} 
+                  />
                   }
                 </div>
 
