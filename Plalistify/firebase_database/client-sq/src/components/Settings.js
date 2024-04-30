@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Switch from '@mui/material/Switch'; // Import Switch component from MUI
 import { Container } from '@mui/material'; // Import Container component from MUI
-
+import axios from "axios";
 const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
   const [energy, setEnergy] = useState(featureFilters.energy); // State for energy feature
   const [loudness, setLoudness] = useState(featureFilters.loudness); // State for loudness feature
@@ -10,7 +10,69 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
   const [valence, setValence] = useState(featureFilters.valence); // State for valence feature
   const [tempo, setTempo] = useState(featureFilters.tempo); // State for tempo feature
   const [explicit, setExplicit] = useState(featureFilters.explicit); // State for explicit feature
+  const [accessToken, setAccessToken] = useState(""); // State for Spotify access token
+  const [isPlaying, setIsPlaying] = useState(false); // State for playback state
+ 
 
+  // Function to fetch Spotify access token
+  useEffect(() => {
+    let ignore = false;
+
+    async function fetchToken() {
+      try {
+        const result = await axios(process.env.REACT_APP_API_URL + '/host/token');
+        if (!ignore) {
+          setAccessToken(result.data);
+          setIsPlaying(featureFilters.isPlaying); // Set playback state based on initial value
+        }
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    }
+
+    fetchToken();
+
+    return () => { ignore = true; };
+  }, [featureFilters.isPlaying]); // Listen for changes in isPlaying state
+
+  // Function to handle playback control actions
+  const handlePlay = async () => {
+    try {
+      await axios.put('https://api.spotify.com/v1/me/player/play', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      setIsPlaying(true); // Update playback state
+    } catch (error) {
+      console.error('Error playing:', error);
+    }
+  };
+
+  const handlePause = async () => {
+    try {
+      await axios.put('https://api.spotify.com/v1/me/player/pause', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      setIsPlaying(false); // Update playback state
+    } catch (error) {
+      console.error('Error pausing:', error);
+    }
+  };
+
+  const handleSkip = async () => {
+    try {
+      await axios.post('https://api.spotify.com/v1/me/player/next', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+    } catch (error) {
+      console.error('Error skipping:', error);
+    }
+  };
   // Function to handle slider changes
   const handleSliderChange = (event, setValue) => {
     const updatedValue = event.target.value; // Get the updated value from the event
@@ -153,8 +215,38 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
                 />
               </label>
             </div>
+            <div>
+              <div style={{marginTop:"3vh"}}>Playback state: {isPlaying ? "Playing" : "Paused"}</div>
+                <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }} onClick={handlePlay}>Play</button>
+              <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }}  onClick={handlePause}>Pause</button>
+              <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }}  onClick={handleSkip}>Skip</button>
+             
+            </div>
           </div>
+          
         </Container>
+ 
       </div>
     </div>
   );
