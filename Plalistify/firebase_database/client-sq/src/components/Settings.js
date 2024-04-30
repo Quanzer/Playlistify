@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react"
+import axios from 'axios';
 import Switch from '@mui/material/Switch'; // Import Switch component from MUI
 import { Container } from '@mui/material'; // Import Container component from MUI
 
@@ -10,6 +11,9 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
   const [valence, setValence] = useState(featureFilters.valence); // State for valence feature
   const [tempo, setTempo] = useState(featureFilters.tempo); // State for tempo feature
   const [explicit, setExplicit] = useState(featureFilters.explicit); // State for explicit feature
+  const [accessToken, setAccessToken] = useState("")
+  const [isPlaying, setIsPlaying] = useState(false)
+
 
   // Function to handle slider changes
   const handleSliderChange = (event, setValue) => {
@@ -42,6 +46,55 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
     });
   };
 
+  // Function to handle pause/play/skip functionality
+  useEffect(() => {
+    async function fetchToken() {
+      const result = await axios(process.env.REACT_APP_API_URL + '/host/token')
+      setAccessToken(result.data)
+    }
+
+    fetchToken();
+  }, [])
+
+  const handlePlay = async () => {
+    try {
+      await axios.put('https://api.spotify.com/v1/me/player/play', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      setIsPlaying(true);
+    } catch (error) {
+      console.error('Error playing:', error);
+    }
+  };
+
+  const handlePause = async () => {
+    try {
+      await axios.put('https://api.spotify.com/v1/me/player/pause', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+      setIsPlaying(false);
+    } catch (error) {
+      console.error('Error pausing:', error);
+    }
+  };
+
+  const handleSkip = async () => {
+    try {
+      await axios.post('https://api.spotify.com/v1/me/player/next', null, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+    } catch (error) {
+      console.error('Error skipping:', error);
+    }
+  };
+
+  if (!accessToken) return null;
   return (
     <div style={{ minHeight: "100vh", width: "80vh", maxWidth: "100%" }}>
       {/* Container for the settings */}
@@ -153,10 +206,39 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
                 />
               </label>
             </div>
+            </div>
+              <div style = {{color: theme.palette.text.primary}}>
+              <div >Playback Controls</div>
+              <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }} onClick={handlePlay}>Play</button>
+              <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }}  onClick={handlePause}>Pause</button>
+              <button style = {{
+                position: "relative",
+                border: '.25vh solid ' + theme.palette.common.border,
+                overflowY: "auto",
+                backgroundColor: theme.palette.text.primary,
+                borderRadius: 100 * .015 + 'vh',
+                color: theme.palette.common.border,
+              }}  onClick={handleSkip}>Skip</button>
+              <p>Playback state: {isPlaying ? "Playing" : "Paused"}</p>
           </div>
         </Container>
       </div>
     </div>
+    
   );
 };
 

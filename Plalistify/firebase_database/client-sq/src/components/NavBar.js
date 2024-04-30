@@ -37,9 +37,11 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
             <div style={{ marginLeft: '1vw', fontFamily: "DM Sans", fontWeight: 700 }}>
                 <div style={{ alignItems: "center", alignSelf: "center", alignContent: "center", marginLeft: '1vw', marginTop: '2vh' }}>
                     <div style={{ height: "18vh", display: "flex", paddingTop: "2.25vh", paddingLeft: ".5vw" }}>
+                        <a href="/">
                         <div className={mode === "light" ? "link" : "link1"} style={{ marginLeft: '-1.5vw', marginTop: '1.6vw', fontSize: '5vh', fontWeight: 1000, marginTop: '0vh', marginLeft: '.1vw' }}>
                             Playlistify
                         </div>
+                    </a>
                     </div>
                     <p style={{ marginTop: '4vh', color: theme.palette.text.primary, fontSize: '2vh' }}></p>
                     {
