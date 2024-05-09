@@ -12,6 +12,13 @@ class SessionManager {
     };
     this._playback = {};
     this._buffer = [];
+    this._featureFilters = {
+      energy: { min: 0.0, max: 1.0 },
+      instrumentalness: { min: 0.0, max: 1.0 },
+      valence: { min: 0.0, max: 1.0 },
+      tempo: { min: 0, max: 250 },
+      explicit: true
+    };
   }
 
   // Getters & Setters
@@ -67,21 +74,17 @@ class SessionManager {
     return this.spotifyApi;
   }
 
+  // Feature filters
+  get getFeatureFilters() {
+    return this._featureFilters;
+  }
+
+  updateFeatureFilters(newFilters) {
+    this._featureFilters = newFilters;
+  }
+
   // Methods
   addToQueue(item) {
-    // Check if song is already in queue
-    // for (let i = 0; i < this._queue.length; i++){
-    //   if(item.uri === this._queue[i].uri){
-    //     return false;
-    //   }
-    // }
-    // // Check if song is within the last 10 songs in history
-    // for (let i = 0; i < ((this._history.length) > (10-this._queue.length) ? (10-this._queue.length): this._history.length); i++){
-    //   const index = this._history.length-i-1;
-    //   if(item.uri === this._history[index].uri){
-    //     return false;
-    //   }
-    // }
     this._queue.push(item);
     this._buffer.push(item.uri);
     return true;
@@ -123,10 +126,9 @@ class SessionManager {
     this._buffer = [];
     return this.spotifyApi.authorizationCodeGrant(code).then((data) => {
       this._status.accessToken = data.body['access_token']
-      // Set the access token on the API object to use it in later calls
       this.spotifyApi.setAccessToken(data.body['access_token']);
       this.spotifyApi.setRefreshToken(data.body['refresh_token']);
-      this.status.host = true; //Flag verifying token set (Concept in case we need to add more adminstrative features from client)
+      this.status.host = true;
       this._buffer = this._queue.map(item => item.uri); 
       console.log('Host set')
       return(200);

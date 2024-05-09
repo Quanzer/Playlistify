@@ -273,40 +273,40 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                     {!clicked ?
                       <div style={{ padding: "1vh", fontSize: 100 * 0.0154 + 'vw', marginTop: 100 * 0.011 + 'vh', marginLeft: 100 * 0.007 + 'vw' }}>
                         <div style={{ height: '25vh' }}>
-                          <div style={{ fontSize: 100 * 0.0145 + 'vw', height: "4.25vh" }}>
-                            Instructions
+                          <div style={{ color: theme.palette.text.secondary,fontWeight: 100,fontSize: 100 * 0.0145 + 'vw', height: "4.25vh" }}>
+                            Guidelines
                           </div>
 
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "1.75vh" }}>
+                          <div style={{ color: theme.palette.text.secondary,fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "1.75vh" }}>
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
+                               fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >1 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            <div style={{ fontSize: 100 * 0.01 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
                               Host can change song criteria for being added to queue.
                             </div>
                           </div>
 
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
+                          <div style={{color: theme.palette.text.secondary, fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
+                              fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >2 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            <div style={{ fontSize: 100 * 0.01 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
                               Check the history tab to find or add a recently played song.
                             </div>
                           </div>
 
-                          <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
+                          <div style={{color: theme.palette.text.secondary, fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "2vh" }}>
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                              color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
+                               fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >3 .</div>
-                            <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                            Please avoid adding an excessive number of songs at once to ensure everyone gets a chance to listen to a variety of music contributed by others!
+                            <div style={{ fontSize: 100 * 0.01 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            To avoid spamming, there is a 5 between adding each song!
                             </div>
                           </div>
                         </div>
@@ -434,7 +434,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                 <div style={{ height: 100 * 0.3 + 'vh' }}>
                   <h2 style={{ color: theme.palette.text.primary, fontWeight: "1000", fontSize: 100 * 0.0145 + 'vw',}}>Now playing</h2>
                   {accessToken === "" ?
-                    <h2 color={theme.palette.text.primary}>LOGIN TO SEE THE PLAYER</h2> :
+                    <div style={{ color: theme.palette.text.secondary, fontWeight: "100", fontSize: 100 * 0.0145+ 'vw'}}>go to /admin to authenticate</div> :
                     <NowPlaying theme={theme} mode={mode} />
                   }
                 </div>

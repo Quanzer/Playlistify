@@ -10,6 +10,7 @@ const SessionManager = require('./models/SessionManager');
 
 // Route Files
 const host = require('./routes/host')
+const filter = require('./routes/filter')
 const search = require('./routes/search')
 const queue = require('./routes/queue')
 const playback = require('./routes/playback')
@@ -36,6 +37,7 @@ app.use('/host', host(session));
 app.use('/search', search(session));
 app.use('/queue', queue(io, session));
 app.use('/playback', playback(io, session));
+app.use('/filter', filter(io, session));
 
 // Open to port
 server.listen(process.env.PORT || 3001, () => {

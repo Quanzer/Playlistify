@@ -3,7 +3,7 @@ import '../styles/App.css'
 import axios from 'axios';
 import Track from "./Track"
 import { Container, IconButton } from '@mui/material';
-import { TableContainer, Table, TableBody, TableHead, tableCellClasses } from '@mui/material';
+import { TableContainer, Table, TableBody,  tableCellClasses } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { SocketContext } from './App';
 
@@ -138,8 +138,8 @@ const History = ({ theme }) => {
               {historyData.length === 0 ?
                 <div
 
-                  style={{ fontWeight: "bold", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.primary }}>
-                  The party just started, no songs have been played.
+                  style={{ fontWeight: "100", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.secondary }}>
+                  The event just started, no songs have been played.
                 </div>
                 :
                 <div style={{ borderRadius: 100 * .02 + 'vh', height: "69.4vh", width: "100%" }} >

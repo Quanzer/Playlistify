@@ -12,6 +12,7 @@ import { createContext } from 'react'
 import io from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import themeDefinition from './theme';
+import axios from 'axios';
 
 export const SocketContext = createContext(io(process.env.REACT_APP_API_URL));
 
@@ -26,18 +27,41 @@ function App() {
     tempo: { min: 0, max: 300 },
     explicit: true
   });
-
+  
   useEffect(() => {
-    // Event Handlers
-    apiSocket.on('id', (res) => {
-      console.log('ID: ', res);
-    });
+  let ignore = false;
 
-    return () => {
-      apiSocket.off('id');
-      apiSocket.disconnect();
-    };
-  }, [])
+  async function fetchFilter() {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_API_URL}/filter/filterFeature`);
+      if (!ignore) {
+        // Log the fetched data
+        setFeatureFilters(result.data); 
+        console.log(result.data); // Update the state with fetched data
+      }
+    } catch (error) {
+      console.error('Error fetching filter features:', error);
+      // Handle error, e.g., set default or empty filter features  
+    }
+  }
+  
+
+  // Call the fetchFilter function
+  fetchFilter();
+
+  // Set interval to call fetchFilter every 1 second
+  const intervalId = setInterval(fetchFilter, 1000);
+
+  // Cleanup function to clear interval on component unmount or when useEffect runs again
+  return () => {
+    clearInterval(intervalId);
+    ignore = true; // Set ignore flag to true to ignore any pending async operations
+  };
+}, []);
+  console.log(featureFilters);
+
+  // Function to update the theme
+  
 
   // Function to update the theme
   const updateTheme = (newTheme) => {
@@ -46,10 +70,13 @@ function App() {
     setTheme(createTheme(themeDefinition(newTheme)));
   }
 
-  // Function to update feature filters
+  // Function to update feature filters by making a call to the backend
   const updateFeatureFilters = (newFilters) => {
     setFeatureFilters(newFilters);
-  }
+
+    
+    }
+  
 
   return (
     <ThemeProvider theme={theme}>

@@ -7,6 +7,7 @@ import PasswordPromptComponent from "./PasswordPromptComponent";
   
  
 const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
+    console.log(featureFilters);
     const [energyMin, setEnergyMin] = useState(featureFilters.energy.min); // State for minimum energy feature
     const [energyMax, setEnergyMax] = useState(featureFilters.energy.max); // State for maximum energy feature
    
@@ -91,51 +92,60 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
             console.error('Error skipping:', error);
         }
     };
+    function handleSave() {
+        const update = () => {
+      
+            axios.post(process.env.REACT_APP_API_URL + "/filter/filterFeature/update", {
+                energy: { min: energyMin, max: energyMax },
+                instrumentalness: { min: instrumentalnessMin, max: instrumentalnessMax },
+                valence: { min: valenceMin, max: valenceMax },
+                tempo: { min: tempoMin, max: tempoMax },
+                explicit: explicit
+            })
+            .then(res => {
+              console.log(res.data);
+              
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          }
+          update();
+        updateFeatureFilters({
+            energy: { min: energyMin, max: energyMax },
+            instrumentalness: { min: instrumentalnessMin, max: instrumentalnessMax },
+            valence: { min: valenceMin, max: valenceMax },
+            tempo: { min: tempoMin, max: tempoMax },
+            explicit: explicit
+        });
 
+        
+        
+    };
     // Function to handle slider changes
     const handleFeatureMinChange = (event, setValue) => {
         const updatedValue = parseFloat(event.target.value);
         setValue(updatedValue);
-        updateFeatureFilters({
-            energy: { min: energyMin, max: energyMax },
-            
-            instrumentalness: { min: instrumentalnessMin, max: instrumentalnessMax },
-            valence: { min: valenceMin, max: valenceMax },
-            tempo: { min: tempoMin, max: tempoMax },
-            explicit
-        });
+        
     };
 
     const handleFeatureMaxChange = (event, setValue) => {
         const updatedValue = parseFloat(event.target.value);
         setValue(updatedValue);
-        updateFeatureFilters({
-            energy: { min: energyMin, max: energyMax },
-            
-            instrumentalness: { min: instrumentalnessMin, max: instrumentalnessMax },
-            valence: { min: valenceMin, max: valenceMax },
-            tempo: { min: tempoMin, max: tempoMax },
-            explicit
-        });
+        
     };
 
     // Function to handle explicit toggle
     const handleExplicitToggle = () => {
         setExplicit(!explicit);
-        updateFeatureFilters({
-            energy: { min: energyMin, max: energyMax },
-            
-            instrumentalness: { min: instrumentalnessMin, max: instrumentalnessMax },
-            valence: { min: valenceMin, max: valenceMax },
-            tempo: { min: tempoMin, max: tempoMax },
-            explicit: !explicit
-        });
+        
     };
 
     return (
       <div>
-      {!authenticated && <PasswordPromptComponent theme={theme} onPasswordSubmit={handlePasswordSubmit} />}
-      {authenticated && (
+        
+      {/* {!authenticated && <PasswordPromptComponent theme={theme} onPasswordSubmit={handlePasswordSubmit} />}
+      {authenticated && ( */}
         <div>
           {/* Load settings page components */}
           {/* For example: */}
@@ -264,6 +274,18 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
                                 />
                             </label>
                         </div>
+                        <button style={{
+                            fontWeight: 500,
+                            color: "white",
+                            backgroundColor: theme.palette.primary.main,
+                            width: 13 * .29 + 'vw',
+                            height: 40 * .06 + 'vh',
+                            fontSize: 50 * 0.0145 + 'vw',
+                            borderRadius: '.75vh',
+                            marginLeft: ".2vh",
+                            borderRadius: 100 * .005 + 'vh',
+                            border: ".25vh solid " + theme.palette.common.border,
+                            border: 'none'}} onClick={handleSave}>Save changes</button>
                         <div>
                             <div style={{ marginTop: "3vh" }}>Playback controls:</div>
                             <button style={{
@@ -312,7 +334,7 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
         </div>
           {/* Add your settings page components here */}
         </div>
-      )}
+      {/* )} */}
     </div>
   );
         
