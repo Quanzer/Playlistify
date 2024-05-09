@@ -16,7 +16,7 @@ class SessionManager {
       energy: { min: 0.0, max: 1.0 },
       instrumentalness: { min: 0.0, max: 1.0 },
       valence: { min: 0.0, max: 1.0 },
-      tempo: { min: 0, max: 250 },
+      tempo: { min: 0, max: 300 },
       explicit: true
     };
   }

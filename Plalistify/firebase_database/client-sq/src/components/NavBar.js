@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import LibraryMusicRoundedIcon from '@mui/icons-material/LibraryMusicRounded';
 import ReplayCircleFilledRoundedIcon from '@mui/icons-material/ReplayCircleFilledRounded';
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
@@ -7,21 +8,36 @@ import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = ({ children, theme, mode, updateTheme }) => {
+    const [isHorizontal, setIsHorizontal] = useState(false);
 
+    useEffect(() => {
+        const checkOrientation = () => {
+        setIsHorizontal(window.innerWidth > window.innerHeight);
+        };
+
+        // Initial check
+        checkOrientation();
+
+        // Listen for resize events to update orientation
+        window.addEventListener('resize', checkOrientation);
+
+        // Clean up event listener on component unmount
+        return () => window.removeEventListener('resize', checkOrientation);
+    }, []);
     const menuItem = [
         {
             path: "/",
-            name: "Dashboard",
+            name: isHorizontal?"Dashboard": "",
             icon: <LibraryMusicRoundedIcon style={{ fontSize: '2.75vh' }} />
         },
         {
             path: "/history",
-            name: "History",
+            name: isHorizontal?"History": "",
             icon: <ReplayCircleFilledRoundedIcon style={{ fontSize: '2.75vh' }} />
         },
         {
             path: "/settings",
-            name: "Host Controls",
+            name: isHorizontal? "Host Controls": "",
             icon: <AdminPanelSettingsRoundedIcon style={{ fontSize: '2.75vh' }} />
         }
     ]
@@ -37,11 +53,14 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
             <div style={{ marginLeft: '1vw', fontFamily: "DM Sans", fontWeight: 700 }}>
                 <div style={{ alignItems: "center", alignSelf: "center", alignContent: "center", marginLeft: '1vw', marginTop: '2vh' }}>
                     <div style={{ height: "18vh", display: "flex", paddingTop: "2.25vh", marginLeft:"-.8vw" }}>
-                    <img  style={{marginTop: ".5vh",marginRight:".5vw" , width: 27 * .240 + 'vh', height: 27 * .240 + 'vh' }}
+                    <img  style={{marginTop: ".5vh",marginRight:".5vw" , width: isHorizontal? 27 * .240 + 'vh': 27 * .220 + 'vh', height:isHorizontal? 27 * .240 + 'vh': 27 * .220 + 'vh' }}
                             src={"logo.png"}/>
-                        <div style={{color:theme.palette.text.primary , marginLeft: '-1.5vw', marginTop: '1.6vw', fontSize: '5vh', fontWeight: 1000, marginTop: '0vh', marginLeft: '.1vw' }}>
+                        {isHorizontal?    
+                        <div style={{color:theme.palette.text.primary , marginLeft: '-1.5vw',  fontSize: '4vh', fontWeight: 1000, marginTop: '.75vh', marginLeft: '.1vw' }}>
                             Playlistify
-                        </div>
+                        </div>:
+                        <div></div>
+                        }
                     </div>
                     <p style={{ marginTop: '4vh', color: theme.palette.text.primary, fontSize: '2vh' }}></p>
                     {
@@ -67,7 +86,9 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
                 </div>
                 {/* Theme toggle */}
                 <div style={{ marginLeft: '2.2vw', marginTop: '50vh', display: 'flex', alignItems: 'center', color: theme.palette.text.primary }}>
+                  
                     <NightlightIcon style={{ fontSize: '2.75vh' }} />
+                    {isHorizontal?
                     <Switch
                         checked={mode === 'dark'}
                         onChange={toggleTheme}
@@ -75,7 +96,17 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
                         name="theme-switch"
                         inputProps={{ 'aria-label': 'toggle theme' }}
                     />
+                    :<div></div>}
                 </div>
+                {!isHorizontal?
+                    <Switch
+                        checked={mode === 'dark'}
+                        onChange={toggleTheme}
+                        color="primary"
+                        name="theme-switch"
+                        inputProps={{ 'aria-label': 'toggle theme' }}
+                    />
+                    :<div></div>}
                 <main>{children}</main>
             </div>
         </div>

@@ -19,7 +19,22 @@ const History = ({ theme }) => {
   const [clickedSB, setClickedSB] = useState(theme.palette.common.misc)
   const [borderColor, setBC] = useState(".25vh solid " + theme.palette.common.border)
 
+  const [isHorizontal, setIsHorizontal] = useState(false);
 
+  useEffect(() => {
+    const checkOrientation = () => {
+      setIsHorizontal(window.innerWidth > window.innerHeight);
+    };
+
+    // Initial check
+    checkOrientation();
+
+    // Listen for resize events to update orientation
+    window.addEventListener('resize', checkOrientation);
+
+    // Clean up event listener on component unmount
+    return () => window.removeEventListener('resize', checkOrientation);
+  }, []);
   function handleFocus() {
     setClickedSB(theme.palette.primary.main)
     setBC(".25vh solid " + theme.palette.primary.main)
@@ -60,21 +75,21 @@ const History = ({ theme }) => {
     <div style={{ minHeight: "100vh", width: "80vh", maxWidth: "100%" }}>
       <Container style={{
         fontFamily: "'DM Sans', sans-serif", marginTop: 100 * .045+ 'vh', marginLeft: 100 * .01+ 'vw',
-        fontSize: 100 * 0.0145 + 'vw', fontWeight: "1000", color: theme.palette.text.primary
+        fontSize: isHorizontal? 100 * 0.0145 + 'vw' : 100 * 0.0145 + 'vh', fontWeight: "1000", color: theme.palette.text.primary
       }}>History</Container>
 
       <div style={{ display: "inline-flex", width: "100%", height: 100+ 'vh', marginTop: -100 * .05 + 'vh'}}>
 
         <Container style={{
           fontFamily: "'DM Sans', sans-serif", marginTop: 100 * .05+ 'vh', marginLeft: 100 * .01+ 'vw',
-          width: 100 * .75+ 'vw',
+          width: isHorizontal? 100 * 0.29 + 'vw': 100 * 0.75 + 'vw',
         }}>
 
           <div style={{ display: "flex", flexDirection: "row" }}>
             <input
               style={{
                 marginTop: 100 * .018+ 'vh',
-                width: 100 * .7775+ 'vw',
+                width: isHorizontal? 100 * .7775+ 'vw': 100 * 0.75 + 'vw',
                 height: 100 * .06+ 'vh',
                 borderRadius: 100 * .02 + 'vh',
                 paddingLeft: 100 * .027+ 'vw',
@@ -82,7 +97,8 @@ const History = ({ theme }) => {
                 border: borderColor,
                 borderColor: theme.palette.common.border,
                 backgroundColor: theme.palette.background.secondary,
-                color: theme.palette.text.primary
+                color: theme.palette.text.primary,
+                fontSize: isHorizontal? 100 * 0.01 + 'vw' : 100 * 0.016 + 'vh'
               }}
 
               type="search"
@@ -101,7 +117,7 @@ const History = ({ theme }) => {
               }}
 
             />
-
+            {isHorizontal?
             <IconButton
               disableRipple
               style={{
@@ -116,8 +132,8 @@ const History = ({ theme }) => {
               children={<SearchRoundedIcon style={{ fontSize: 100 * .02+ 'vw' }} />}
               fullWidth={false}
             >
-            </IconButton>
-
+            </IconButton>:
+            <div></div>}
           </div>
 
 
@@ -146,9 +162,9 @@ const History = ({ theme }) => {
                   {searching ?
                     <div style={{ margin: "2vh" }}>Results</div>
                     :
-                    <div style={{fontWeight: 700, margin: "2vh", fontSize: '1.25vw' }}>Can't remember a song you want to replay?</div>
+                    <div style={{fontWeight: 700, margin: "2vh", fontSize: isHorizontal?'1.25vw': '1.25vh' }}>Can't remember a song you want to replay?</div>
                   }
-                  <div style={{ height: "5vh", fontWeight: 500, color: theme.palette.text.primary, fontSize: 100 * 0.01 + 'vw', paddingLeft: 100 * 0.015+ 'vw', paddingTop: 100 * 0.01 + 'vh'}} align="left">
+                  <div style={{ height: "5vh", fontWeight: 500, color: theme.palette.text.primary, fontSize: isHorizontal?100 * 0.01 + 'vw': 100 * 0.015 + 'vh', paddingLeft: 100 * 0.015+ 'vw', paddingTop: 100 * 0.01 + 'vh'}} align="left">
                     Title
 
                   </div>
