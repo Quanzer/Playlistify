@@ -20,12 +20,10 @@ function App() {
   const [mode, setMode] = useState(window.localStorage.getItem('theme') === null ? "light" : window.localStorage.getItem('theme'));
   const [theme, setTheme] = useState(createTheme(themeDefinition(mode)));
   const [featureFilters, setFeatureFilters] = useState({
-    energy: 0.0,
-    loudness: -50.0,
-    acousticness: 0.0,
-    instrumentalness: 0.0,
-    valence: 0.0,
-    tempo: 0,
+    energy: { min: 0.0, max: 1.0 },
+    instrumentalness: { min: 0.0, max: 1.0 },
+    valence: { min: 0.0, max: 1.0 },
+    tempo: { min: 0, max: 300 },
     explicit: true
   });
 

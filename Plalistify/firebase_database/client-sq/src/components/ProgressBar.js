@@ -9,7 +9,8 @@ function ProgressBar({ number, style, theme }) {
         height: '.5vh',
         borderRadius: 5,
         [`&.${linearProgressClasses.colorPrimary}`]: {
-            backgroundColor: theme.palette.text.primary == "#3C435C"? "#d7ddfc" :"#3C435C"
+            backgroundColor: theme.palette.text.primary === "#3C435C" ? "#FCDCD7" : "#5C3C3C"
+
         },
         [`& .${linearProgressClasses.bar}`]: {
             borderRadius: 5,

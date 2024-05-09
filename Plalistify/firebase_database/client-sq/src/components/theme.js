@@ -4,45 +4,45 @@ const themeDefinition = (mode) => ({
         ...(mode === "light") ?
             {
                 text: {
-                    primary: "#3C435C",
-                    secondary: "#A3A8BF"
+                    primary: "#5C3C3C", // light red-gray
+                    secondary: "#BF8A8A" // red-gray
                 },
                 background: {
-                    primary: "#F6F8FF",
-                    secondary: "#FFFFFF",
-                    third: "#FFFFFF"
+                    primary: "#FFF6F6", // light red-gray
+                    secondary: "#FFFFFF", // white
+                    third: "#FFFFFF" // white
                 },
                 primary: {
-                    main: "#496FFF"
+                    main: "#FF496F" // bright red
                 },
-                common:{
-                    border: "#E0E4F2",
-                    boxShadow: "#E0E4F2",
-                    misc: "#A3A8BF",
-                    disButton: "#A3A8BF"
+                common: {
+                    border: "#F2E0E0", // light red-gray
+                    boxShadow: "#F2E0E0", // light red-gray
+                    misc: "#BF8A8A", // red-gray
+                    disButton: "#BF8A8A" // red-gray
                 }
             } :
             {
                 text: {
-                    primary: "#D6DDFF",
-                    secondary: "#D6DDFF"
+                    primary: "#FFD6D6", // light red-gray
+                    secondary: "#FFD6D6" // light red-gray
                 },
                 background: {
-                    primary: "#151A28",
-                    secondary: "#0F1521",
-                    third: "#151A28"
+                    primary: "#000000", // near pitch black
+                    secondary: "#0F0F0F", // darker red-gray
+                    third: "#000000" // near pitch black
                 },
                 primary: {
-                    main: "#496FFF"
+                    main: "#FF496F" // bright red
                 },
                 common: {
-                    border: "#202733",
-                    boxShadow: "#496FFF",
-                    misc: "#5A627E",
-                    disButton: "#3C435C"
+                    border: "#202020", // dark red-gray
+                    boxShadow: "#FF496F", // bright red
+                    misc: "#7E5A5A", // medium red-gray
+                    disButton: "#989898" // light red-gray
                 }
             }
     }
-})
+});
 
 export default themeDefinition;

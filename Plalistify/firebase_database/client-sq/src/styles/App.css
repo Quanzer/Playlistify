@@ -61,37 +61,37 @@ main{
   font-family: 'DM Sans', sans-serif;
   font-weight: bold;
   font-size: 180%;
-  color: #3d435a;
+  color: #5C3C3C;
 }
  
 .link {
   display: flex;
-  color: #3C435C;
+  color: #5C3C3C;
   transition: all 0.5s;
   text-decoration: none;
 }
 
 .link:hover {
-  background: #F6F8FF;
-  color: #496fff;
+  background: #FFF6F6;
+  color: #FF496F;
   transition: all 0.5s;
 }
 
 .link1 {
   display: flex;
-  color: #D6DDFF;
+  color: #FFD6D6;
   transition: all 0.5s;
   text-decoration: none;
 }
 
 .link1:hover {
-  background: #202733;
-  color: #496fff;
+  background: #332020;
+  color: #FF496F;
   transition: all 0.5s;
 }
 
 .active {
-  background: #496fff;
+  background: #FF496F;
   color: #FFFFFF;
 }
 
@@ -100,7 +100,7 @@ main{
   font-size:1.05vw;
 }
 .searchA::placeholder{
- color: #A3A8BF;
+ color: #BF8A8A;
 }
 
 
@@ -112,7 +112,7 @@ main{
   font-size:1.05vw;
 }
 .searchB::placeholder{
- color: #5A627E;
+ color: #7E5A5A;
 }
 
 
@@ -220,13 +220,13 @@ main{
  
 .button {
 
-  color: #496FFF;
+  color: #FF496F;
   transition: all 0.35s;
  
 }
 
 .button:hover {
 
-  color: #248aff;
+  color: #989898;
   transition: all 0.35s;
 }

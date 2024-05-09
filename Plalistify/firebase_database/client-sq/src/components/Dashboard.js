@@ -125,27 +125,28 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
 
 
     function filter(features) {
-      var boolFilter = []
+      var boolFilter = [];
       for (let i = 0; i < features.length; i++) {
         if (features[i] === null) {
           boolFilter.push(false);
-        }
-        else if (features[i].energy < featureFilters.energy ||
-          features[i].loudness < featureFilters.loudness ||
-          features[i].acousticness < featureFilters.acousticness ||
-          features[i].instrumentalness < featureFilters.instrumentalness ||
-          features[i].valence < featureFilters.valence ||
-          features[i].tempo < featureFilters.tempo) {
-
+        } else if (
+          features[i].energy < featureFilters.energy.min ||
+          features[i].energy > featureFilters.energy.max ||
+          features[i].instrumentalness < featureFilters.instrumentalness.min ||
+          features[i].instrumentalness > featureFilters.instrumentalness.max ||
+          features[i].valence < featureFilters.valence.min ||
+          features[i].valence > featureFilters.valence.max ||
+          features[i].tempo < featureFilters.tempo.min ||
+          features[i].tempo > featureFilters.tempo.max
+        ) {
           boolFilter.push(false);
-         
-        }
-        else {
+        } else {
           boolFilter.push(true);
         }
       }
       return boolFilter;
     }
+    
 
 
     if (!search) return setSearchResults([])
