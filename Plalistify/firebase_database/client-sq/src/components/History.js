@@ -60,7 +60,7 @@ const History = ({ theme }) => {
     <div style={{ minHeight: "100vh", width: "80vh", maxWidth: "100%" }}>
       <Container style={{
         fontFamily: "'DM Sans', sans-serif", marginTop: 100 * .045+ 'vh', marginLeft: 100 * .01+ 'vw',
-        fontSize: 100 * .021+ 'vw', fontWeight: "1000", color: theme.palette.text.primary
+        fontSize: 100 * 0.0145 + 'vw', fontWeight: "1000", color: theme.palette.text.primary
       }}>History</Container>
 
       <div style={{ display: "inline-flex", width: "100%", height: 100+ 'vh', marginTop: -100 * .05 + 'vh'}}>
@@ -76,7 +76,7 @@ const History = ({ theme }) => {
                 marginTop: 100 * .018+ 'vh',
                 width: 100 * .7775+ 'vw',
                 height: 100 * .06+ 'vh',
-                borderRadius: 100 * .015+ 'vh',
+                borderRadius: 100 * .02 + 'vh',
                 paddingLeft: 100 * .027+ 'vw',
                 paddingRight: 100 * .00875+ 'vw',
                 border: borderColor,
@@ -127,7 +127,7 @@ const History = ({ theme }) => {
               overflowY: "hidden",
               overflowX: "hidden",
               border: '.25vh solid ' + theme.palette.common.border,
-              marginTop: 100 * .02+ 'vh', borderRadius: 100 * .015+ 'vh',
+              marginTop: 100 * .02+ 'vh', borderRadius: 100 * .02 + 'vh',
               display: "flex", flexDirection: "row", fontWeight: "bold",
               height: "75.3vh", backgroundColor: theme.palette.background.secondary, color: theme.palette.text.primary,
               fontSize: 100 * 0.0145+ 'vw', width: 100 * .7775+ 'vw'
@@ -142,7 +142,7 @@ const History = ({ theme }) => {
                   The party just started, no songs have been played.
                 </div>
                 :
-                <div style={{ borderRadius: 100 * .015+ 'vh', height: "69.4vh", width: "100%" }} >
+                <div style={{ borderRadius: 100 * .02 + 'vh', height: "69.4vh", width: "100%" }} >
                   {searching ?
                     <div style={{ margin: "2vh" }}>Results</div>
                     :

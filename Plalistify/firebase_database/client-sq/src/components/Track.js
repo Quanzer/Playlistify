@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { Slide, Fade, Zoom, TableCell, TableRow } from '@mui/material';
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { IconButton } from '@mui/material';
 
 const Track = ({ track, clickable, num, theme }) => {
@@ -48,7 +48,7 @@ const Track = ({ track, clickable, num, theme }) => {
       }
     }
 
-    const interval = 100; // Allowed interval in milliseconds
+    const interval = 5000; // Allowed interval in milliseconds
     let lastQueued = localStorage.getItem('time-queued');
     if (!lastQueued) {
       queueRequest();
@@ -84,7 +84,10 @@ const Track = ({ track, clickable, num, theme }) => {
             </TableCell>
             <TableCell style={{ padding: ".7vh 1.6vw", width: 100 * 0.01 + 'vw' }} align="left">
               <a href={track.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                <img className="bigger" src={track.albumUrl} alt={track.title} style={{ height: 100 * 0.02625 + 'vw', width: "100*0.02625+ 'vw'" }} />
+                <img className="bigger" src={track.albumUrl} alt={track.title} style={{     borderRadius: 100 * .005 + 'vh',
+              border: ".05vh solid " + theme.palette.primary.main,
+              borderColor: theme.palette.primary.main,
+              backgroundColor: theme.palette.background.secondary, height: 100 * 0.02625 + 'vw', width: "100*0.02625+ 'vw'" }} />
               </a>
             </TableCell>
             <div style={{ marginLeft: -100 * 0.007 + 'vw', alignItems: "center", align: "center"}}>
@@ -104,7 +107,10 @@ const Track = ({ track, clickable, num, theme }) => {
             <div style={{ width: '.9vw', marginLeft: -100 * 0.007 + 'vw'}}></div>
             <TableCell style={{ padding: ".75vh  1.1vw", width: 100 * 0.01 + 'vw'}} align="left">
               <a href={track.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                <img className="bigger" src={track.albumUrl} alt={track.title} style={{ height: 100 * 0.034 + 'vw', width: 100 * 0.034 + 'vw'}} />
+                <img className="bigger" src={track.albumUrl} alt={track.title} style={{     borderRadius: 100 * .005 + 'vh',
+              border: ".05vh solid " + theme.palette.primary.main,
+              borderColor: theme.palette.primary.main,
+              backgroundColor: theme.palette.background.secondary,height: 100 * 0.034 + 'vw', width: 100 * 0.034 + 'vw'}} />
               </a>
             </TableCell>
             <div style={{ marginLeft: -100 * 0.007 + 'vw', alignItems: "center", align: "center"}}>
@@ -125,21 +131,21 @@ const Track = ({ track, clickable, num, theme }) => {
                   {
                     !clicked ?
                       !disable ?
-                        <AddCircleOutlineRoundedIcon className="button" sx={{ fontSize: '2.2vw'}}/>
+                        <AddRoundedIcon className="button" sx={{ fontSize: '2.2vw'}}/>
                         :
                         <Zoom in={disable} timeout={300}>
-                          <AddCircleOutlineRoundedIcon sx={{ color: theme.palette.common.disButton, fontSize: '2.2vw'}}/>
+                          <AddRoundedIcon sx={{ color: theme.palette.common.disButton, fontSize: '2.2vw'}}/>
                         </Zoom>
                       :
                       <Zoom in={fade} timeout={300}>
-                        <CheckCircleRoundedIcon sx={{ fontSize: '2.2vw', color: theme.palette.primary.main }}/>
+                        <CheckRoundedIcon sx={{ fontSize: '2.2vw', color: theme.palette.primary.main }}/>
                       </Zoom>
                   }
                 </IconButton>
                 :
                 clickable ?
                   <IconButton variant = "outlined" disabled style={{ color: theme.palette.common.disButton }}>
-                  <AddCircleOutlineRoundedIcon sx={{ fontSize: 100 * 0.022 + 'vw'}} />
+                  <AddRoundedIcon sx={{ fontSize: 100 * 0.022 + 'vw'}} />
                 </IconButton> : null
               }
             </TableCell>

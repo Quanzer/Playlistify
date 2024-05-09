@@ -192,7 +192,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
     <div style={{ minHeight: "100vh", width: 100 * .8 + 'vw', maxWidth: "100%" }}>
       <Container style={{
         fontFamily: "'DM Sans', sans-serif", marginTop: 100 * .045 + 'vh', marginLeft: 100 * .01 + 'vw',
-        fontSize: 100 * .021 + 'vw', fontWeight: "1000", color: theme.palette.text.primary
+        fontSize: 100 * 0.0145 + 'vw', fontWeight: "1000", color: theme.palette.text.primary
       }}>Dashboard</Container>
       <div style={{ display: "inline-flex", width: "100%", height: 100 + 'vh', marginTop: -100 * .00 + 'vh' }}>
         <Container style={{
@@ -209,7 +209,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
               marginTop: 100 * .018 + 'vh',
               width: 100 * .29 + 'vw',
               height: 100 * .06 + 'vh',
-              borderRadius: 100 * .015 + 'vh',
+              borderRadius: 100 * .02 + 'vh',
               border: borderColor,
               borderColor: theme.palette.common.border,
               paddingLeft: 100 * .027 + 'vw',
@@ -266,7 +266,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                       overflowY: "auto",
                       width: 100 * 0.29 + 'vw',
                       backgroundColor: theme.palette.background.secondary,
-                      borderRadius: 100 * .015 + 'vh',
+                      borderRadius: 100 * .02 + 'vh',
                       color: theme.palette.text.primary
                     }}>
 
@@ -274,7 +274,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                       <div style={{ padding: "1vh", fontSize: 100 * 0.0154 + 'vw', marginTop: 100 * 0.011 + 'vh', marginLeft: 100 * 0.007 + 'vw' }}>
                         <div style={{ height: '25vh' }}>
                           <div style={{ fontSize: 100 * 0.0145 + 'vw', height: "4.25vh" }}>
-                            Guidelines
+                            Instructions
                           </div>
 
                           <div style={{ fontWeight: 500, display: "flex", flexDirection: "row", marginTop: "1.75vh" }}>
@@ -284,7 +284,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                               color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >1 .</div>
                             <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                              Host can change song criteria for being added to queue!
+                              Host can change song criteria for being added to queue.
                             </div>
                           </div>
 
@@ -295,7 +295,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                               color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >2 .</div>
                             <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                              If you loved a song you heard earlier, you can find it again in the history tab.
+                              Check the history tab to find or add a recently played song.
                             </div>
                           </div>
 
@@ -306,7 +306,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                               color: theme.palette.text.primary, fontSize: "1vw", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >3 .</div>
                             <div style={{ fontSize: 100 * 0.0105 + 'vw', width: "23vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                            To keep the playlist diverse, add a variety of songs. Everyone loves discovering new jams!
+                            Please avoid adding an excessive number of songs at once to ensure everyone gets a chance to listen to a variety of music contributed by others!
                             </div>
                           </div>
                         </div>
@@ -348,7 +348,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                         overflowY: 'hidden',
                         color: "#3d435a",
                         border: '.25vh solid ' + theme.palette.common.border,
-                        borderRadius: 100 * .015 + 'vh',
+                        borderRadius: 100 * .02 + 'vh',
                         backgroundColor: theme.palette.background.secondary,
                         width: 100 * 0.29 + 'vw',
                         height: 100 * 0.755 + 'vh',
@@ -384,7 +384,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                           overflowY: 'hidden',
                           color: "#3d435a",
                           border: '.25vh solid ' + theme.palette.common.border,
-                          borderRadius: 100 * .015 + 'vh',
+                          borderRadius: 100 * .02 + 'vh',
                           backgroundColor: theme.palette.background.secondary,
                           width: 100 * 0.29 + 'vw',
                           height: 100 * 0.755 + 'vh',
@@ -416,7 +416,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
 
           <Container style={{
             border: '.25vh solid ' + theme.palette.common.border,
-            borderRadius: 100 * .015 + 'vh',
+            borderRadius: 100 * .02 + 'vh',
             backgroundColor: theme.palette.background.secondary,
             height: 100 * 0.835 + 'vh',
             width: 100 * 0.4 + 'vw',
@@ -432,7 +432,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
             <div style={{ marginLeft: -100 * .02 + 'vh' }}>
               <div style={{ marginLeft: 100 * .012 + 'vw', marginTop: 100 * .026 + 'vh' }}>
                 <div style={{ height: 100 * 0.3 + 'vh' }}>
-                  <h2 style={{ color: theme.palette.text.primary, fontWeight: "1000", fontSize: 100 * 0.0167 + 'vw' }}>Now playing</h2>
+                  <h2 style={{ color: theme.palette.text.primary, fontWeight: "1000", fontSize: 100 * 0.0145 + 'vw',}}>Now playing</h2>
                   {accessToken === "" ?
                     <h2 color={theme.palette.text.primary}>LOGIN TO SEE THE PLAYER</h2> :
                     <NowPlaying theme={theme} mode={mode} />
@@ -440,7 +440,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                 </div>
 
                 <div >
-                  <h2 style={{ color: theme.palette.text.primary, marginTop: -100 * 0.001 + 'vh', fontSize: 100 * 0.0147 + 'vw', height: "4vh", fontWeight: "1000" }}>Next up</h2>
+                  <h2 style={{ color: theme.palette.text.primary, marginTop: -100 * 0.001 + 'vh', fontSize: 100 * 0.0145 + 'vw', height: "4vh", fontWeight: "1000" }}>Next up</h2>
 
                   <div style={{ marginTop: 100 * 0.0075 + 'vh', fontSize: 100 * 0.01 + 'vw', fontFamily: "DM Sans", fontWeight: "bold", color: theme.palette.text.primary, fontWeight: 300 }}>
                     <span style={{ marginLeft: 100 * 0.007 + 'vw' }}> # </span>
@@ -458,8 +458,8 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                   </div>
 
                   {queueData.length === 0 ?
-                    <div style={{ opacity: "50%", color: theme.palette.text.primary, marginLeft: '.5vw', fontSize: 100 * 0.0147 + 'vw', height: "4vh", fontWeight: 300 }}>
-                      Be the first to add a song to the queue!
+                    <div style={{ opacity: "50%", color: theme.palette.text.primary, marginLeft: '.5vw', fontSize: 100 * 0.01 + 'vw', height: "4vh", fontWeight: 300 }}>
+                      No songs queued.
                     </div>
                     :
                     <Queue trackList={queueData} theme={theme} />}

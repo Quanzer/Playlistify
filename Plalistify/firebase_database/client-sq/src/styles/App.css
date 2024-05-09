@@ -227,6 +227,6 @@ main{
 
 .button:hover {
 
-  color: #989898;
+  color: rgb(255, 179, 207);
   transition: all 0.35s;
 }

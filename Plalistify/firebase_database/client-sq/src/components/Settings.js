@@ -145,7 +145,7 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
                 fontFamily: "'DM Sans', sans-serif",
                 marginTop: 100 * .045 + 'vh',
                 marginLeft: 100 * .01 + 'vw',
-                fontSize: 100 * .021 + 'vw',
+                fontSize: 100 * 0.0145 + 'vw',
                 fontWeight: "1000",
                 color: theme.palette.text.primary
             }}>
@@ -265,31 +265,43 @@ const Settings = ({ theme, updateFeatureFilters, featureFilters }) => {
                             </label>
                         </div>
                         <div>
-                            <div style={{ marginTop: "3vh" }}>Playback state: {isPlaying ? "Playing" : "Paused"}</div>
+                            <div style={{ marginTop: "3vh" }}>Playback controls:</div>
                             <button style={{
-                                position: "relative",
-                                border: '.25vh solid ' + theme.palette.common.border,
-                                overflowY: "auto",
-                                backgroundColor: theme.palette.text.primary,
-                                borderRadius: 100 * .015 + 'vh',
-                                color: theme.palette.common.border,
-                            }} onClick={handlePlay}>Play</button>
+                fontWeight: 500,
+                color: "white",
+                backgroundColor: theme.palette.primary.main,
+                width: 13 * .29 + 'vw',
+                height: 40 * .06 + 'vh',
+                fontSize: 50 * 0.0145 + 'vw',
+                borderRadius: '.75vh',
+                marginLeft: ".2vh",
+                borderRadius: 100 * .005 + 'vh',
+                border: ".25vh solid " + theme.palette.common.border,
+                border: 'none'}} onClick={handlePlay}>Play</button>
                             <button style={{
-                                position: "relative",
-                                border: '.25vh solid ' + theme.palette.common.border,
-                                overflowY: "auto",
-                                backgroundColor: theme.palette.text.primary,
-                                borderRadius: 100 * .015 + 'vh',
-                                color: theme.palette.common.border,
-                            }} onClick={handlePause}>Pause</button>
+                fontWeight: 500,
+                color: "white",
+                backgroundColor: theme.palette.primary.main,
+                width: 13 * .29 + 'vw',
+                height: 40 * .06 + 'vh',
+                fontSize: 50 * 0.0145 + 'vw',
+                borderRadius: '.75vh',
+                marginLeft: ".2vh",
+                borderRadius: 100 * .005 + 'vh',
+                border: ".25vh solid " + theme.palette.common.border,
+                border: 'none'}} onClick={handlePause}>Pause</button>
                             <button style={{
-                                position: "relative",
-                                border: '.25vh solid ' + theme.palette.common.border,
-                                overflowY: "auto",
-                                backgroundColor: theme.palette.text.primary,
-                                borderRadius: 100 * .015 + 'vh',
-                                color: theme.palette.common.border,
-                            }} onClick={handleSkip}>Skip</button>
+                fontWeight: 500,
+                color: "white",
+                backgroundColor: theme.palette.primary.main,
+                width: 13 * .29 + 'vw',
+                height: 40 * .06 + 'vh',
+                fontSize: 50 * 0.0145 + 'vw',
+                borderRadius: '.75vh',
+                marginLeft: ".2vh",
+                borderRadius: 100 * .005 + 'vh',
+                border: ".25vh solid " + theme.palette.common.border,
+                border: 'none'}} onClick={handleSkip}>Skip</button>
 
                         </div>
                     </div>

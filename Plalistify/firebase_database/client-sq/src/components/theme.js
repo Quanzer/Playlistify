@@ -19,7 +19,7 @@ const themeDefinition = (mode) => ({
                     border: "#F2E0E0", // light red-gray
                     boxShadow: "#F2E0E0", // light red-gray
                     misc: "#BF8A8A", // red-gray
-                    disButton: "#BF8A8A" // red-gray
+                    disButton: "#989898" // red-gray
                 }
             } :
             {

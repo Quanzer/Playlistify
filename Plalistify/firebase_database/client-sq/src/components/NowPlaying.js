@@ -50,7 +50,16 @@ const NowPlaying = ({ theme, mode }) => {
         <div>
           <a href={playbackState.spotifyUrl} target="_blank" rel="noopener noreferrer"><img class="bigger2" src={playbackState.albumImage[0].url}
             alt={"Album Image"}
-            style={{ height: 100 * 0.104 + 'vw', width: 100 * 0.104 + 'vw', marginTop: 100 * 0.008 + 'vh' }} /> </a>
+            style={{
+              
+              
+              
+            borderRadius: 100 * .02 + 'vh',
+            border: ".25vh solid " + theme.palette.primary.main,
+            borderColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.background.secondary,
+           
+             height: 100 * 0.104 + 'vw', width: 100 * 0.104 + 'vw', marginTop: 100 * 0.008 + 'vh' }} /> </a>
         </div>
 
         <div style={{ alignSelf: "flex-end", marginLeft: 100 * .016 + 'vw', width: "100%", marginBottom: -100 * 0.006 + 'vh' }}>

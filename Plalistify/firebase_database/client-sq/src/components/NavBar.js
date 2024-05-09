@@ -1,7 +1,7 @@
 import React from "react";
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
-import SettingsIcon from '@mui/icons-material/Settings';
+import LibraryMusicRoundedIcon from '@mui/icons-material/LibraryMusicRounded';
+import ReplayCircleFilledRoundedIcon from '@mui/icons-material/ReplayCircleFilledRounded';
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import Switch from '@mui/material/Switch';
 import { NavLink } from 'react-router-dom';
@@ -12,17 +12,17 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
         {
             path: "/",
             name: "Dashboard",
-            icon: <HomeRoundedIcon style={{ fontSize: '2.75vh' }} />
+            icon: <LibraryMusicRoundedIcon style={{ fontSize: '2.75vh' }} />
         },
         {
             path: "/history",
             name: "History",
-            icon: <AccessTimeFilledRoundedIcon style={{ fontSize: '2.75vh' }} />
+            icon: <ReplayCircleFilledRoundedIcon style={{ fontSize: '2.75vh' }} />
         },
         {
             path: "/settings",
             name: "Host Controls",
-            icon: <SettingsIcon style={{ fontSize: '2.75vh' }} />
+            icon: <AdminPanelSettingsRoundedIcon style={{ fontSize: '2.75vh' }} />
         }
     ]
 
@@ -36,7 +36,9 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
         <div style={{ backgroundColor: theme.palette.background.secondary, borderRight: '.25vh solid ' + theme.palette.common.border, width: '17.6vw', height: "100vh" }}>
             <div style={{ marginLeft: '1vw', fontFamily: "DM Sans", fontWeight: 700 }}>
                 <div style={{ alignItems: "center", alignSelf: "center", alignContent: "center", marginLeft: '1vw', marginTop: '2vh' }}>
-                    <div style={{ height: "18vh", display: "flex", paddingTop: "2.25vh", paddingLeft: ".5vw" }}>
+                    <div style={{ height: "18vh", display: "flex", paddingTop: "2.25vh", marginLeft:"-.8vw" }}>
+                    <img  style={{marginTop: ".5vh",marginRight:".5vw" , width: 27 * .240 + 'vh', height: 27 * .240 + 'vh' }}
+                            src={"logo.png"}/>
                         <div style={{color:theme.palette.text.primary , marginLeft: '-1.5vw', marginTop: '1.6vw', fontSize: '5vh', fontWeight: 1000, marginTop: '0vh', marginLeft: '.1vw' }}>
                             Playlistify
                         </div>
@@ -48,7 +50,7 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
                                 marginLeft: '.65vw',
                                 marginBottom: '1vh',
                                 width: '12.35vw',
-                                borderRadius: '.75vh',
+                                borderRadius: '2vh',
                                 padding: "1.1vh .7vw",
                                 gap: '1.1vh',
                                 height: '5vh'
