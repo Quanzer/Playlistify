@@ -1,24 +1,42 @@
 // Component for rendering the Queue
 import React from "react"
 import Track from "./Track"
-import {  TableContainer, Table, TableBody, Paper } from '@mui/material'
+import { TableContainer, Table, TableBody, tableCellClasses, TableCell } from '@mui/material';
 
-export default function Queue({ trackList }) {
+const Queue = ({ trackList, theme }) => {
+  return (
+    // Will be modified to include displaying position in queue.
 
-    return (
-      // Will be modified to include displaying position in queue.
-        <TableContainer component={Paper} style={{overflowY: "auto"}}>
-          <Table>
-            <TableBody>
-                {trackList.map((track, index) => (
-                  <Track 
-                    track={track}
-                    key={index}
-                    clickable={false}
-                  />
-              ))}
-              </TableBody>
-            </Table>
-        </TableContainer>
-    )
+    <TableContainer sx={{ height: "40.5vh", boxShadow: 0, width: "auto", }}
+      style={{ overflowY: "auto", overflowX: "hidden" }}>
+
+      <Table
+        stickyHeader
+        sx={{
+          [`& .${tableCellClasses.root}`]: {
+            borderBottom: "none"
+          },
+          boxShadow: 0,
+
+        }}
+      >
+
+        <TableBody >
+
+          {trackList.map((track, index) => (
+            <Track
+              track={track}
+              key={index}
+              num={index}
+              clickable={false}
+              theme={theme}
+            />
+          ))}
+
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+
 }
+export default Queue;

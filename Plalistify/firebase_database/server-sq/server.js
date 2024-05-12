@@ -1,103 +1,54 @@
+// Modules
 const express = require("express");
-const SpotifyWebApi = require("spotify-web-api-node");
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {cors: {origin: "*"}});
+const SpotifyWebApi = require("spotify-web-api-node");
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const SessionManager = require('./models/SessionManager');
+
+// Route Files
+const host = require('./routes/host')
+const filter = require('./routes/filter')
+const search = require('./routes/search')
 const queue = require('./routes/queue')
+const playback = require('./routes/playback')
 
-app.use(cors())
+// Deployment Related Functionality
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+// Express Setup
 app.use(bodyParser.json())
+// CORS: Cross-Origin Resource Sharing
+app.use(cors())
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-var clientId = 'dfe14fe582f44c358b2e05ded123ee70', clientSecret = 'e09034ca3fb346ccaa929bb1559a9571';
-const spotifyApi = new SpotifyWebApi({clientId: clientId, clientSecret: clientSecret});
+// API
+const session = new SessionManager();
 
-/*
-
-app.post('/login', (req,res) => {
-  const code = req.body.code
-
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri:'http://localhost:3000',
-    clientId:'dfe14fe582f44c358b2e05ded123ee70',
-    clientSecret:'e09034ca3fb346ccaa929bb1559a9571'
-  })
-
-  spotifyApi.authorizationCodeGrant(code).then(data =>{
-    res.json({
-      accessToken: data.body.access_token,
-      refreshToken: data.body.refresh_token,
-      expiresIn: data.body.expires_in
-    })
-  })
-  .catch(()=>{
-    res.sendStatus(400);
-  })
-})
-
-app.post('/refresh', (req, res) => {
-  const refreshToken = req.body.refreshToken
-  const spotifyApi = new SpotifyWebApi({
-    redirectUri:'http://localhost:3000',
-    clientId:'dfe14fe582f44c358b2e05ded123ee70', 
-    clientSecret:'e09034ca3fb346ccaa929bb1559a9571',
-    refreshToken, 
-  })
-
-  spotifyApi
-    .refreshAccessToken()
-    .then(data => {
-      res.json({
-        eccessToken: data.body.accessToken,
-        expiresIn: data.body.expiresIn,
-      })
-    })
-    .catch(err => {
-      console.log(err)
-      res.sendStatus(400)
-    })
-})
-*/
-
-app.post('/searchTracks', function(req, res){
-  //spotifyApi.setAccessToken(req.body.accessToken)
-  spotifyApi.searchTracks(req.body.searchString,req.body.params).then(
-    function(data) {
-        res.send(data);
-    },
-    function(err) {
-        console.error(err);
-    }
-    )
-})
-
-app.post('/getAudioFeaturesForTracks', function(req, res){
-  //spotifyApi.setAccessToken(req.body.accessToken)
-  spotifyApi.getAudioFeaturesForTracks(req.body.idArr).then(
-    function(data) {
-        res.send(data);
-    },
-    function(err) {
-        console.error(err);
-    }
-    )
-})
-
-// REQUIRES UPDATE: to be called set on < 60 minute interval
-// Setup Procedures
-spotifyApi.clientCredentialsGrant().then(
-  function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
-
-    spotifyApi.setAccessToken(data.body['access_token']);
-  },
-  function(err) {
-    console.log('Something went wrong when retrieving the access token', err);
-  }
-)
-
-
-app.use('/queue', queue(spotifyApi));
+app.use('/host', host(session));
+app.use('/search', search(session));
+app.use('/queue', queue(io, session));
+app.use('/playback', playback(io, session));
+app.use('/filter', filter(io, session));
 
 // Open to port
-app.listen(3001);
+server.listen(process.env.PORT || 3001, () => {
+  console.log('Playlistify API Active');
+});
+
+// Socket Handlers
+io.on('connection', (socket) => {
+  socket.emit('id', socket.id);
+  console.log(socket.id + ' connected');
+  socket.on('disconnect', (reason) => {
+  })
+});
+
