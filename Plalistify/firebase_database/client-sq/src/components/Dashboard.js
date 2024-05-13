@@ -323,7 +323,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                                fontSize: isHorizontal? "1vw": "1vh", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >3 .</div>
                             <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
-                            To avoid spamming, there is a 5 between adding each song!
+                            To avoid spamming, there is a 5 second timer between adding each song!
                             </div>
                           </div>
                         </div>
