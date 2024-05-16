@@ -5,6 +5,7 @@ import ReplayCircleFilledRoundedIcon from '@mui/icons-material/ReplayCircleFille
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded';
 import NightlightIcon from '@mui/icons-material/Nightlight';
 import Switch from '@mui/material/Switch';
+import FeedbackRoundedIcon from '@mui/icons-material/FeedbackRounded';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = ({ children, theme, mode, updateTheme }) => {
@@ -39,7 +40,13 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
             path: "/settings",
             name: isHorizontal? "Host Controls": "",
             icon: <AdminPanelSettingsRoundedIcon style={{ fontSize: '2.75vh' }} />
+        },
+        {
+            path: "https://forms.gle/N2ujDwtU4R1XurCZ9",
+            name: isHorizontal? "Give Us Feedback!": "",
+            icon: <FeedbackRoundedIcon style={{ fontSize: '2.75vh' }} />
         }
+
     ]
 
     // Function to handle theme change
@@ -65,22 +72,51 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
                     <p style={{ marginTop: '4vh', color: theme.palette.text.primary, fontSize: '2vh' }}></p>
                     {
                         menuItem.map((item, index) => (
-                            <NavLink style={{
-                                marginLeft: '.65vw',
-                                marginBottom: '1vh',
-                                width: '12.35vw',
-                                borderRadius: '2vh',
-                                padding: "1.1vh .7vw",
-                                gap: '1.1vh',
-                                height: '5vh'
-                            }}
-                                to={item.path}
-                                key={index}
-                                className={mode === "light" ? "link" : "link1"}
-                                activeclassName="active">
-                                {item.icon}
-                                <div style={{ display: "block", fontSize: '1.85vh', fontWeight: 500, marginTop: '0vh', marginLeft: '.1vw' }} >{item.name}</div>
-                            </NavLink>
+                            item.path.startsWith("http") || item.path.startsWith("https") ? (
+                                <a
+                                    href={item.path}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        marginLeft: '.65vw',
+                                        marginBottom: '1vh',
+                                        width: '12.35vw',
+                                        borderRadius: '2vh',
+                                        padding: "1.1vh .7vw",
+                                        gap: '1.1vh',
+                                        height: '5vh',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        textDecoration: 'none'
+                                    }}
+                                    key={index}
+                                    className={mode === "light" ? "link" : "link1"}
+                                    activeclassName="active">
+                                    {item.icon}
+                                    <div style={{ display: "block", fontSize: '1.85vh', fontWeight: 500, marginTop: '0vh', marginLeft: '.1vw' }} >{item.name}</div>
+                                </a>
+                            ) : (
+                                <NavLink
+                                    to={item.path}
+                                    key={index}
+                                    style={{
+                                        marginLeft: '.65vw',
+                                        marginBottom: '1vh',
+                                        width: '12.35vw',
+                                        borderRadius: '2vh',
+                                        padding: "1.1vh .7vw",
+                                        gap: '1.1vh',
+                                        height: '5vh',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        textDecoration: 'none'
+                                    }}
+                                    className={mode === "light" ? "link" : "link1"}
+                                    activeclassName="active">
+                                    {item.icon}
+                                    <div style={{ display: "block", fontSize: '1.85vh', fontWeight: 500, marginTop: '0vh', marginLeft: '.1vw' }} >{item.name}</div>
+                                </NavLink>
+                            )
                         ))
                     }
                 </div>
