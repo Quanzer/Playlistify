@@ -121,7 +121,7 @@ const NavBar = ({ children, theme, mode, updateTheme }) => {
                     }
                 </div>
                 {/* Theme toggle */}
-                <div style={{ marginLeft: '2.2vw', marginTop: '50vh', display: 'flex', alignItems: 'center', color: theme.palette.text.primary }}>
+                <div style={{ marginLeft: '2.2vw', marginTop: '40vh', display: 'flex', alignItems: 'center', color: theme.palette.text.primary }}>
                   
                     <NightlightIcon style={{ fontSize: '2.75vh' }} />
                     {isHorizontal?
