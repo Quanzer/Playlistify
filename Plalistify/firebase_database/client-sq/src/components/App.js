@@ -5,14 +5,14 @@ import Admin from "./Admin"
 import Authorized from "./Authorized"
 import History from "./History"
 import Settings from './Settings.js';
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import NavBar from "./NavBar"
 import { Routes, Route } from "react-router-dom"
-import { createContext } from 'react'
 import io from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import themeDefinition from './theme';
 import axios from 'axios';
+import LoginSignup from './LoginSignup'; // Import the LoginSignup component
 
 export const SocketContext = createContext(io(process.env.REACT_APP_API_URL));
 
@@ -29,39 +29,35 @@ function App() {
   });
   
   useEffect(() => {
-  let ignore = false;
+    let ignore = false;
 
-  async function fetchFilter() {
-    try {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/filter/filterFeature`);
-      if (!ignore) {
-        // Log the fetched data
-        setFeatureFilters(result.data); 
-        console.log(result.data); // Update the state with fetched data
+    async function fetchFilter() {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_API_URL}/filter/filterFeature`);
+        if (!ignore) {
+          // Log the fetched data
+          setFeatureFilters(result.data); 
+          console.log(result.data); // Update the state with fetched data
+        }
+      } catch (error) {
+        console.error('Error fetching filter features:', error);
+        // Handle error, e.g., set default or empty filter features  
       }
-    } catch (error) {
-      console.error('Error fetching filter features:', error);
-      // Handle error, e.g., set default or empty filter features  
     }
-  }
-  
 
-  // Call the fetchFilter function
-  fetchFilter();
+    // Call the fetchFilter function
+    fetchFilter();
 
-  // Set interval to call fetchFilter every 1 second
-  const intervalId = setInterval(fetchFilter, 1000);
+    // Set interval to call fetchFilter every 1 second
+    const intervalId = setInterval(fetchFilter, 1000);
 
-  // Cleanup function to clear interval on component unmount or when useEffect runs again
-  return () => {
-    clearInterval(intervalId);
-    ignore = true; // Set ignore flag to true to ignore any pending async operations
-  };
-}, []);
+    // Cleanup function to clear interval on component unmount or when useEffect runs again
+    return () => {
+      clearInterval(intervalId);
+      ignore = true; // Set ignore flag to true to ignore any pending async operations
+    };
+  }, []);
   console.log(featureFilters);
-
-  // Function to update the theme
-  
 
   // Function to update the theme
   const updateTheme = (newTheme) => {
@@ -73,10 +69,7 @@ function App() {
   // Function to update feature filters by making a call to the backend
   const updateFeatureFilters = (newFilters) => {
     setFeatureFilters(newFilters);
-
-    
-    }
-  
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -89,6 +82,7 @@ function App() {
             <Route path="/" element={<Dashboard theme={theme} mode={mode} featureFilters={featureFilters} />} />
             <Route path="/history" element={<History theme={theme} />} />
             <Route path="/settings" element={<Settings theme={theme} updateTheme={updateTheme} updateFeatureFilters={updateFeatureFilters} featureFilters={featureFilters} />} />
+            <Route path="/loginsignup" element={<LoginSignup />} /> {/* Add the new route */}
           </Routes>
         </SocketContext.Provider>
       </div>
