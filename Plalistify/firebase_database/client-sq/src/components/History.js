@@ -29,7 +29,7 @@ const History = ({ theme }) => {
     // Initial check
     checkOrientation();
 
-    // Listen for resize events to update orientation
+    // Listen for resize evetnts to update orientation
     window.addEventListener('resize', checkOrientation);
 
     // Clean up event listener on component unmount
@@ -154,7 +154,7 @@ const History = ({ theme }) => {
               {historyData.length === 0 ?
                 <div
 
-                  style={{ fontWeight: "100", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.secondary }}>
+                  style={{fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', fontWeight: "100", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.secondary }}>
                   The event just started, no songs have been played.
                 </div>
                 :

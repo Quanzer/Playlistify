@@ -278,7 +278,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                     style={{
                       position: "relative",
                       border: '.25vh solid ' + theme.palette.common.border,
-                      height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.56 + 'vh',
+                      height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.48+ 'vh',
                       marginTop: 100 * 0.02 + 'vh',
                       overflowY: "auto",
                       width: isHorizontal? 100 * 0.29 + 'vw': 100 * 0.75 + 'vw',
@@ -368,7 +368,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                         borderRadius: 100 * .02 + 'vh',
                         backgroundColor: theme.palette.background.secondary,
                         width: isHorizontal? 100 * 0.29 + 'vw': 100 * 0.75 + 'vw',
-                        height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.56 + 'vh',
+                        height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.48+ 'vh',
                         marginTop: 100 * 0.02 + 'vh',
                       }}>
 
@@ -404,7 +404,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                           borderRadius: 100 * .02 + 'vh',
                           backgroundColor: theme.palette.background.secondary,
                           width: isHorizontal? 100 * 0.29 + 'vw': 100 * 0.75 + 'vw',
-                          height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.56 + 'vh',
+                          height:isHorizontal? 100 * 0.755 + 'vh': 100 * 0.48+ 'vh',
                           marginTop: 100 * 0.02 + 'vh',
                         }}>
                           <div style={{ padding: "1vh", fontSize: 100 * 0.0154 + 'vw', marginTop: 100 * 0.011 + 'vh', marginLeft: 100 * 0.007 + 'vw' }}>
