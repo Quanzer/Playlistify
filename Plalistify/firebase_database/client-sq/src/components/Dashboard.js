@@ -262,7 +262,27 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
               children={<SearchRoundedIcon style={{ fontSize: 100 * .02 + 'vw' }} />}
               fullWidth={false}
             >
-            </IconButton>: <div></div>}
+            </IconButton>: 
+              <IconButton 
+                disableRipple
+                style={{ position: "fixed", 
+                marginTop: -100 * .04 + 'vh', 
+                marginLeft: 65+ 'vw', 
+                height: .035 + 'vh',
+                width: .035 + 'vh', 
+                borderRadius: 80,
+                color: clicked ? theme.palette.primary.main : theme.palette.common.misc
+                  }}
+                  onClick={() => {
+
+                    setSearch(dynInput)
+
+                  }}
+                  type="button"
+                  variant="contained"
+                  children={<SearchRoundedIcon style={{ fontSize: 100 * .05 + 'vh' }} />}
+                  fullWidth={false}>
+                  </IconButton>}
 
 
           </div>
@@ -298,9 +318,9 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                               fontSize: isHorizontal? "1vw": "1vh", marginLeft: ".4vw", marginTop: "0.5vh"
+                               fontSize: isHorizontal? "1vw": "2vh", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >1 .</div>
-                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
                               Host can change song criteria for being added to queue.
                             </div>
                           </div>
@@ -309,9 +329,9 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                              fontSize: isHorizontal? "1vw": "1vh", marginLeft: ".4vw", marginTop: "0.5vh"
+                              fontSize: isHorizontal? "1vw": "2vh", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >2 .</div>
-                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
                               Check the history tab to find or add a recently played song.
                             </div>
                           </div>
@@ -320,9 +340,9 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                             <div class="circle" style={{
                               backgroundColor: theme.palette.background.secondary,
                               
-                               fontSize: isHorizontal? "1vw": "1vh", marginLeft: ".4vw", marginTop: "0.5vh"
+                               fontSize: isHorizontal? "1vw": "2vh", marginLeft: ".4vw", marginTop: "0.5vh"
                             }} >3 .</div>
-                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
+                            <div style={{ fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', width: isHorizontal? "23vw" : "70vw", marginLeft: "1vw", lineHeight: '2.5vh' }}>
                             To avoid spamming, there is a 5 second timer between adding each song!
                             </div>
                           </div>
@@ -335,11 +355,11 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                             Results
                           </div>
                           {loading ?
-                            <div style={{ fontSize: 100 * 0.01025 + 'vw', height: "0vh" }}>
+                            <div style={{  fontSize: isHorizontal? 100 * 0.01025 + 'vw': 100 * 0.02 + 'vh', height: "0vh" }}>
                               {text}
                             </div>
                             :
-                            <div style={{ fontWeight: 500, fontSize: 100 * 0.01025 + 'vw' }}>
+                            <div style={{ fontWeight: 500, fontSize: isHorizontal?  100 * 0.01025 + 'vw': 100 * 0.02 + 'vh' }}>
                               Your search results will show here once you <a style={{ color: theme.palette.primary.main }}>hit enter</a>
                             </div>}
                         </div>
@@ -381,11 +401,11 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                           </div>
 
                           {loading ?
-                            <div style={{ fontWeight: 500, fontSize: 100 * 0.01025 + 'vw', height: "0vh", color: theme.palette.text.primary }}>
+                            <div style={{ fontWeight: 500, fontSize: isHorizontal? 100 * 0.01025 + 'vw': 100 * 0.02 + 'vh', height: "0vh", color: theme.palette.text.primary }}>
                               {text}
                             </div>
                             :
-                            <div style={{ fontWeight: 500, fontSize: 100 * 0.01025 + 'vw', height: "0vh", color: theme.palette.text.primary }}>
+                            <div style={{ fontWeight: 500, fontSize: isHorizontal? 100 * 0.01025 + 'vw': 100 * 0.016 + 'vh', height: "0vh", color: theme.palette.text.primary }}>
                               Songs filtered by host are grayed out.
                             </div>
                           }
@@ -480,7 +500,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                  <div >
                   <h2 style={{ color: theme.palette.text.primary, marginTop: -100 * 0.001 + 'vh', fontSize: isHorizontal? 100 * 0.0145 + 'vw' : 100 * 0.016 + 'vh', height: "4vh", fontWeight: "1000" }}>Next up</h2>
 
-                  <div style={{ marginTop: 100 * 0.0075 + 'vh', fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', fontFamily: "DM Sans", fontWeight: "bold", color: theme.palette.text.primary, fontWeight: 300 }}>
+                  <div style={{ marginTop: 100 * 0.0075 + 'vh', fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', fontFamily: "DM Sans", fontWeight: "bold", color: theme.palette.text.primary, fontWeight: 300 }}>
                     <span style={{ marginLeft: 100 * 0.007 + 'vw' }}> # </span>
 
                    
@@ -496,7 +516,7 @@ const Dashboard = ({ theme, mode, featureFilters }) => {
                   </div>
 
                   {queueData.length === 0 ?
-                    <div style={{ opacity: "50%", color: theme.palette.text.primary, marginLeft: '.5vw', fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.01 + 'vh', height: "4vh", fontWeight: 300 }}>
+                    <div style={{ opacity: "50%", color: theme.palette.text.primary, marginLeft: '.5vw', fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', height: "4vh", fontWeight: 300 }}>
                       No songs queued.
                     </div>
                     :

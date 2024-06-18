@@ -133,7 +133,24 @@ const History = ({ theme }) => {
               fullWidth={false}
             >
             </IconButton>:
-            <div></div>}
+            <IconButton 
+            disableRipple
+            style={{ position: "fixed", 
+            marginTop: 100 * .04 + 'vh', 
+            marginLeft: 60+ 'vw', 
+            height: .035 + 'vh',
+            width: .035 + 'vh', 
+            borderRadius: 80,
+            color: clickedSB
+              }}
+              onClick={() => { }}
+              type="button"
+              variant="contained"
+              children={<SearchRoundedIcon style={{ fontSize: 100 * .05+ 'vh' }} />}
+              fullWidth={false}
+            >
+            </IconButton>}
+              
           </div>
 
 
@@ -154,7 +171,7 @@ const History = ({ theme }) => {
               {historyData.length === 0 ?
                 <div
 
-                  style={{fontSize: isHorizontal? 100 * 0.01 + 'vw': 100 * 0.02 + 'vh', fontWeight: "100", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.secondary }}>
+                  style={{fontSize: isHorizontal? 100 * 0.01 + 'vw':  '2vh', fontWeight: "100", overflowY: "auto", padding: 100 * 0.03+ 'vh', color: theme.palette.text.secondary }}>
                   The event just started, no songs have been played.
                 </div>
                 :
@@ -162,7 +179,7 @@ const History = ({ theme }) => {
                   {searching ?
                     <div style={{ margin: "2vh" }}>Results</div>
                     :
-                    <div style={{fontWeight: 700, margin: "2vh", fontSize: isHorizontal?'1.25vw': '1.25vh' }}>Can't remember a song you want to replay?</div>
+                    <div style={{fontWeight: 700, margin: "2vh", fontSize: isHorizontal?'1.25vw': '2vh' }}>Can't remember a song you want to replay?</div>
                   }
                   <div style={{ height: "5vh", fontWeight: 500, color: theme.palette.text.primary, fontSize: isHorizontal?100 * 0.01 + 'vw': 100 * 0.015 + 'vh', paddingLeft: 100 * 0.015+ 'vw', paddingTop: 100 * 0.01 + 'vh'}} align="left">
                     Title
